@@ -1,5 +1,6 @@
-# tm2scratch
-Connect Google Teachable Machine with Scratch
+# TM2Scratch
+
+[UNDER CONSTRUCTION] Connect Google Teachable Machine with Scratch
 
 ## For Developers - How to add TM2Scratch extension to your (customized) Scratch
 
