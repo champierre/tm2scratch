@@ -7,6 +7,9 @@ const formatMessage = require('format-message');
 
 const HAT_TIMEOUT = 100;
 
+let imageMetadata = null;
+let imageClassifire = null;
+
 const Message = {
   train_label_1: {
     'ja': 'ラベル1を学習する',
@@ -337,6 +340,20 @@ class Scratch3TM2ScratchBlocks {
           }
         },
         {
+          opcode: 'useModelURL',
+          text: 'model URL [URL]',
+          blockType: BlockType.COMMAND,
+          arguments: {
+            URL: {
+              type: ArgumentType.STRING,
+              defaultValue: 'https://teachablemachine.withgoogle.com/models/TuzkGLdX/'
+            }
+          }
+        },
+        {
+          
+        },
+        {
           opcode: 'download',
           text: Message.download_learning_data[this.locale],
           blockType: BlockType.COMMAND
@@ -384,7 +401,7 @@ class Scratch3TM2ScratchBlocks {
         }
       ],
       menus: {
-        received_menu: this.getMenu('received'),
+        received_menu: 'getLabelsMenu',
         reset_menu: this.getMenu('reset'),
         train_menu: this.getTrainMenu(),
         video_menu: this.getVideoMenu(),
@@ -533,6 +550,38 @@ class Scratch3TM2ScratchBlocks {
         }
       }
     }, 1000);
+  }
+
+  /**
+  * Load a model from URL.
+  * @param {object} args - the block's arguments.
+  * @property {String} URL - URL of model to be loaded.
+  */
+  useModelURL(args) {
+    this.loadModelFromURL(args.URL)
+  }
+
+  loadModelFromURL(url) {
+    fetch(url + 'metadata.json')
+      .then(res => {
+        return res.json();
+      })
+      .then(metadata => {
+        //TODO: timeStamp should be checked to decide update or not.
+        imageMetadata = metadata;
+        return ml5.imageClassifier(url + "model.json"); // TODO: Fix not found error cause url is forced into lowercase.
+      })
+      .then(classifier => {
+        imageClassifire = classifier;
+      })
+      .catch(error => {
+        console.log(error.message)
+      });
+  }
+
+  getLabelsMenu() {
+    if (!imageMetadata) return [''];
+    return imageMetadata.labels;
   }
 
   download() {
