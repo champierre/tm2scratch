@@ -15,7 +15,7 @@ wget -P src/lib/libraries/extensions/tm2scratch https://raw.githubusercontent.co
 mv src/lib/libraries/extensions/index.jsx src/lib/libraries/extensions/index.jsx_orig
 ML2SCRATCH="\
     {${LF}\
-        name: 'ML2Scratch',${LF}\
+        name: 'TM2Scratch',${LF}\
         extensionId: 'tm2scratch',${LF}\
         collaborator: 'champierre',${LF}\
         iconURL: tm2scratchIconURL,${LF}\
