@@ -569,7 +569,7 @@ class Scratch3TM2ScratchBlocks {
       .then(metadata => {
         //TODO: timeStamp should be checked to decide update or not.
         imageMetadata = metadata;
-        return ml5.imageClassifier(url + "model.json"); // TODO: Fix not found error cause url is forced into lowercase.
+        return ml5.imageClassifier(url + "model.json");
       })
       .then(classifier => {
         imageClassifier = classifier;
