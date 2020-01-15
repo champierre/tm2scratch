@@ -8,7 +8,7 @@ const formatMessage = require('format-message');
 const HAT_TIMEOUT = 100;
 
 let imageMetadata = null;
-let imageClassifire = null;
+let imageClassifier = null;
 
 const Message = {
   train_label_1: {
@@ -572,7 +572,7 @@ class Scratch3TM2ScratchBlocks {
         return ml5.imageClassifier(url + "model.json"); // TODO: Fix not found error cause url is forced into lowercase.
       })
       .then(classifier => {
-        imageClassifire = classifier;
+        imageClassifier = classifier;
       })
       .catch(error => {
         console.log(error.message)
