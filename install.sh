@@ -5,7 +5,7 @@ LF=${LF%_}
 
 mkdir -p node_modules/scratch-vm/src/extensions/scratch3_tm2scratch
 wget -P node_modules/scratch-vm/src/extensions/scratch3_tm2scratch https://raw.githubusercontent.com/champierre/tm2scratch/master/scratch-vm/src/extensions/scratch3_tm2scratch/index.js
-wget -P node_modules/scratch-vm/src/extensions/scratch3_tm2scratch https://unpkg.com/ml5@0.4.3/dist/ml5.min.js
+wget -P node_modules/scratch-vm/src/extensions https://unpkg.com/ml5@0.4.3/dist/ml5.min.js
 mv node_modules/scratch-vm/src/extension-support/extension-manager.js node_modules/scratch-vm/src/extension-support/extension-manager.js_orig
 sed -e "s|scratch3_gdx_for')$|scratch3_gdx_for'),${LF}    tm2scratch: () => require('../extensions/scratch3_tm2scratch')|g" node_modules/scratch-vm/src/extension-support/extension-manager.js_orig > node_modules/scratch-vm/src/extension-support/extension-manager.js
 
