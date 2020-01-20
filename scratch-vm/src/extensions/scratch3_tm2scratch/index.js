@@ -7,9 +7,6 @@ const formatMessage = require('format-message');
 
 const HAT_TIMEOUT = 100;
 
-let imageMetadata = null;
-let imageClassifier = null;
-
 const Message = {
   train_label_1: {
     'ja': 'ラベル1を学習する',
@@ -233,6 +230,8 @@ class Scratch3TM2ScratchBlocks {
       }, this.interval);
     });
 
+    this.imageMetadata = null;
+    this.imageClassifier = null;
     this.runtime.ioDevices.video.enableVideo();
   }
 
@@ -568,11 +567,11 @@ class Scratch3TM2ScratchBlocks {
       })
       .then(metadata => {
         //TODO: timeStamp should be checked to decide update or not.
-        imageMetadata = metadata;
+        this.imageMetadata = metadata;
         return ml5.imageClassifier(url + "model.json");
       })
       .then(classifier => {
-        imageClassifier = classifier;
+        this.imageClassifier = classifier;
       })
       .catch(error => {
         console.log(error.message)
@@ -581,8 +580,8 @@ class Scratch3TM2ScratchBlocks {
 
   getLabelsMenu() {
     let menu = [Message.any[this.locale]];
-    if (!imageMetadata) return menu;
-    menu = menu.concat(imageMetadata.labels);
+    if (!this.imageMetadata) return menu;
+    menu = menu.concat(this.imageMetadata.labels);
     return menu;
   }
 
