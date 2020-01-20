@@ -283,7 +283,7 @@ class Scratch3TM2ScratchBlocks {
             LABEL: {
               type: ArgumentType.STRING,
               menu: 'received_menu',
-              defaultValue: 'any'
+              defaultValue: Message.any[this.locale]
             }
           }
         },
@@ -580,8 +580,10 @@ class Scratch3TM2ScratchBlocks {
   }
 
   getLabelsMenu() {
-    if (!imageMetadata) return [''];
-    return imageMetadata.labels;
+    let menu = [Message.any[this.locale]];
+    if (!imageMetadata) return menu;
+    menu = menu.concat(imageMetadata.labels);
+    return menu;
   }
 
   download() {
