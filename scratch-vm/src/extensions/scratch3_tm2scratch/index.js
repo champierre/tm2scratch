@@ -8,6 +8,16 @@ const formatMessage = require('format-message');
 const HAT_TIMEOUT = 100;
 
 const Message = {
+  classify_image: {
+    'ja': '画像を分類する',
+    'ja-Hira': 'がぞうをぶんるいする',
+    'en': 'classify image'
+  },
+  image_label: {
+    'ja': '画像ラベル',
+    'ja-Hira': 'がぞうらべる',
+    'en': 'image label'
+  },
   train_label_1: {
     'ja': 'ラベル1を学習する',
     'ja-Hira': 'ラベル1をがくしゅうする',
@@ -232,6 +242,8 @@ class Scratch3TM2ScratchBlocks {
 
     this.imageMetadata = null;
     this.imageClassifier = null;
+    this.imageProbableLabels = [];
+
     this.runtime.ioDevices.video.enableVideo();
   }
 
@@ -350,7 +362,14 @@ class Scratch3TM2ScratchBlocks {
           }
         },
         {
-          
+          opcode: 'classifyVideoImage',
+          text: Message.classify_image[this.locale],
+          blockType: BlockType.COMMAND
+        },
+        {
+          opcode: 'getImageLabel',
+          text: Message.image_label[this.locale],
+          blockType: BlockType.REPORTER
         },
         {
           opcode: 'download',
@@ -572,6 +591,7 @@ class Scratch3TM2ScratchBlocks {
       })
       .then(classifier => {
         this.imageClassifier = classifier;
+        this.imageProbableLabels = [];
       })
       .catch(error => {
         console.log(error.message)
@@ -583,6 +603,63 @@ class Scratch3TM2ScratchBlocks {
     if (!this.imageMetadata) return menu;
     menu = menu.concat(this.imageMetadata.labels);
     return menu;
+  }
+
+  /**
+   * Pick a probability which has highest confidence. 
+   * @param {Array} probabilities - An Array of probabilities.
+   * @property {number} probabilities.confidence - Probability of the label.
+   * @return {Object} - One of the highest confidence probability.
+   */
+  getMostProbableOne(probabilities) {
+    if (probabilities.length == 0) return null;
+    let mostOne = probabilities[0];
+    probabilities.forEach(clss => {
+      if (clss.confidence > mostOne.confidence) {
+        mostOne = clss;
+      }
+    });
+    return mostOne
+  }
+
+  /**
+   * Classify image from the video input.
+   * 
+   * @return {Promise} - a Promise that resolves after classification.
+   */
+  classifyVideoImage() {
+    return new Promise((resolve, reject) => {
+      this.classifyImage(this.video)
+        .then(result => {
+          this.imageProbableLabels = result;
+          resolve();
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * Classyfy image from input data source.
+   * 
+   * @param {HTMLImageElement | ImageData | HTMLCanvasElement | HTMLVideoElement} input - Data source for classification.
+   * @return {Promise} - A Promise that resolves the result of classification. The result will be empty when the imageClassifier was not set.
+   */
+  classifyImage(input) {
+    if (!this.imageMetadata || !this.imageClassifier) {
+      return Promise.resolve([]);
+    }
+    return this.imageClassifier.classify(input);
+  }
+
+  /**
+   * Get the most probable label in the image.
+   * @return {string} label
+   */
+  getImageLabel() {
+    if (!this.imageProbableLabels || this.imageProbableLabels.length == 0) return '';
+    return this.getMostProbableOne(this.imageProbableLabels).label;
   }
 
   download() {
