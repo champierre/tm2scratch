@@ -574,28 +574,42 @@ class Scratch3TM2ScratchBlocks {
   * Load a model from URL.
   * @param {object} args - the block's arguments.
   * @property {String} URL - URL of model to be loaded.
+  * @return {Promise} - A Promise that resolve after loaded.
   */
   useModelURL(args) {
-    this.loadModelFromURL(args.URL)
+    return this.loadModelFromURL(args.URL);
   }
 
+  /**
+   * Load a model from URL for image classification.
+   * @param {string} url - URL of model to be loaded.
+   * @return {Promise} - A Promise that resolves after loaded.
+   */
   loadModelFromURL(url) {
-    fetch(url + 'metadata.json')
+    return new Promise((resolve, reject) => {
+      fetch(url + 'metadata.json')
       .then(res => {
         return res.json();
       })
       .then(metadata => {
         //TODO: timeStamp should be checked to decide update or not.
-        this.imageMetadata = metadata;
-        return ml5.imageClassifier(url + "model.json");
-      })
-      .then(classifier => {
-        this.imageClassifier = classifier;
-        this.imageProbableLabels = [];
+        ml5.imageClassifier(url + "model.json")
+          .then(classifier => {
+            this.imageMetadata = metadata;
+            this.imageClassifier = classifier;
+            this.imageProbableLabels = [];
+            log.info(`image model loaded from: ${url}`);
+          })
+          .catch(error => {
+            log.warn(error);
+          })
+          .finally(() => resolve());
       })
       .catch(error => {
-        console.log(error.message)
-      });
+        log.warn(error);
+        resolve();
+      })
+    });
   }
 
   getLabelsMenu() {
