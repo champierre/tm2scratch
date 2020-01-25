@@ -18,30 +18,6 @@ const Message = {
     'ja-Hira': 'がぞうらべる',
     'en': 'image label'
   },
-  train_label_1: {
-    'ja': 'ラベル1を学習する',
-    'ja-Hira': 'ラベル1をがくしゅうする',
-    'en': 'train label 1',
-    'zh-cn': '学习标签1'
-  },
-  train_label_2: {
-    'ja': 'ラベル2を学習する',
-    'ja-Hira': 'ラベル2をがくしゅうする',
-    'en': 'train label 2',
-    'zh-cn': '学习标签2'
-  },
-  train_label_3: {
-    'ja': 'ラベル3を学習する',
-    'ja-Hira': 'ラベル3をがくしゅうする',
-    'en': 'train label 3',
-    'zh-cn': '学习标签3'
-  },
-  train: {
-    'ja': 'ラベル[LABEL]を学習する',
-    'ja-Hira': 'ラベル[LABEL]をがくしゅうする',
-    'en': 'train label [LABEL]',
-    'zh-cn': '学习标签[LABEL]'
-  },
   when_received_block: {
     'ja': 'ラベル[LABEL]を受け取ったとき',
     'ja-Hira': 'ラベル[LABEL]をうけとったとき',
@@ -54,54 +30,6 @@ const Message = {
     'en': 'label',
     'zh-cn': '标签'
   },
-  counts_label_1: {
-    'ja': 'ラベル1の枚数',
-    'ja-Hira': 'ラベル1のまいすう',
-    'en': 'counts of label 1',
-    'zh-cn': '标签数量1'
-  },
-  counts_label_2: {
-    'ja': 'ラベル2の枚数',
-    'ja-Hira': 'ラベル2のまいすう',
-    'en': 'counts of label 2',
-    'zh-cn': '标签数量2'
-  },
-  counts_label_3: {
-    'ja': 'ラベル3の枚数',
-    'ja-Hira': 'ラベル3のまいすう',
-    'en': 'counts of label 3',
-    'zh-cn': '标签数量3'
-  },
-  counts_label_4: {
-    'ja': 'ラベル4の枚数',
-    'ja-Hira': 'ラベル4のまいすう',
-    'en': 'counts of label 4',
-    'zh-cn': '标签数量4'
-  },
-  counts_label_5: {
-    'ja': 'ラベル5の枚数',
-    'ja-Hira': 'ラベル5のまいすう',
-    'en': 'counts of label 5',
-    'zh-cn': '标签数量5'
-  },
-  counts_label_6: {
-    'ja': 'ラベル6の枚数',
-    'ja-Hira': 'ラベル6のまいすう',
-    'en': 'counts of label 6',
-    'zh-cn': '标签数量6'
-  },
-  counts_label_7: {
-    'ja': 'ラベル7の枚数',
-    'ja-Hira': 'ラベル7のまいすう',
-    'en': 'counts of label 7',
-    'zh-cn': '标签数量7'
-  },
-  counts_label_8: {
-    'ja': 'ラベル8の枚数',
-    'ja-Hira': 'ラベル8のまいすう',
-    'en': 'counts of label 8',
-    'zh-cn': '标签数量8'
-  },
   any: {
     'ja': 'のどれか',
     'ja-Hira': 'のどれか',
@@ -113,48 +41,6 @@ const Message = {
     'ja-Hira': 'のすべて',
     'en': 'all',
     'zh-cn': '所有'
-  },
-  reset: {
-    'ja': 'ラベル[LABEL]の学習をリセット',
-    'ja-Hira': 'ラベル[LABEL]のがくしゅうをリセット',
-    'en': 'reset label:[LABEL]',
-    'zh-cn': '重置[LABEL]'
-  },
-  download_learning_data: {
-    'ja': '学習データをダウンロード',
-    'ja-Hira': 'がくしゅうデータをダウンロード',
-    'en': 'download learning data',
-    'zh-cn': '下载学习数据'
-  },
-  upload_learning_data: {
-    'ja': '学習データをアップロード',
-    'ja-Hira': 'がくしゅうデータをアップロード',
-    'en': 'upload learning data',
-    'zh-cn': '上传学习数据'
-  },
-  upload: {
-    'ja': 'アップロード',
-    'ja-Hira': 'アップロード',
-    'en': 'upload',
-    'zh-cn': '上传'
-  },
-  uploaded: {
-    'ja': 'アップロードが完了しました。',
-    'ja-Hira': 'アップロードがかんりょうしました。',
-    'en': 'The upload is complete.',
-    'zh-cn': '上传完成。'
-  },
-  upload_instruction: {
-    'ja': 'ファイルを選び、アップロードボタンをクリックして下さい。',
-    'ja-Hira': 'ファイルをえらび、アップロードボタンをクリックしてください。',
-    'en': 'Select a file and click the upload button.',
-    'zh-cn': '选择一个文件，然后单击上传按钮。'
-  },
-  confirm_reset: {
-    'ja': '本当にリセットしてもよろしいですか？',
-    'ja-Hira': 'ほんとうにリセットしてもよろしいですか？',
-    'en': 'Are you sure to reset?',
-    'zh-cn': '你确定要重置吗？'
   },
   toggle_classification: {
     'ja': 'ラベル付けを[CLASSIFICATION_STATE]にする',
@@ -191,12 +77,6 @@ const Message = {
     'ja-Hira': 'さゆうはんてん',
     'en': 'on flipped',
     'zh-cn': '镜像开启'
-  },
-  first_training_warning: {
-    'ja': '最初の学習にはしばらく時間がかかるので、何度もクリックしないで下さい。',
-    'ja-Hira': 'さいしょのがくしゅうにはしばらくじかんがかかるので、なんどもクリックしないでください。',
-    'en': 'The first training will take a while, so do not click again and again.',
-    'zh-cn': '第一项研究需要一段时间，所以不要一次又一次地点击。'
   }
 }
 
@@ -217,9 +97,6 @@ class Scratch3TM2ScratchBlocks {
     this.video.style.display = "none";
 
     this.blockClickedAt = null;
-
-    this.counts = null;
-    this.firstTraining = true;
 
     this.interval = 1000;
 
@@ -255,33 +132,6 @@ class Scratch3TM2ScratchBlocks {
       name: 'TM2Scratch',
       blocks: [
         {
-          opcode: 'addExample1',
-          blockType: BlockType.COMMAND,
-          text: Message.train_label_1[this.locale]
-        },
-        {
-          opcode: 'addExample2',
-          blockType: BlockType.COMMAND,
-          text: Message.train_label_2[this.locale]
-        },
-        {
-          opcode: 'addExample3',
-          blockType: BlockType.COMMAND,
-          text: Message.train_label_3[this.locale]
-        },
-        {
-          opcode: 'train',
-          text: Message.train[this.locale],
-          blockType: BlockType.COMMAND,
-          arguments: {
-            LABEL: {
-              type: ArgumentType.STRING,
-              menu: 'train_menu',
-              defaultValue: '4'
-            }
-          }
-        },
-        {
           opcode: 'getLabel',
           text: Message.label_block[this.locale],
           blockType: BlockType.REPORTER
@@ -295,58 +145,6 @@ class Scratch3TM2ScratchBlocks {
               type: ArgumentType.STRING,
               menu: 'received_menu',
               defaultValue: Message.any[this.locale]
-            }
-          }
-        },
-        {
-          opcode: 'getCountByLabel1',
-          text: Message.counts_label_1[this.locale],
-          blockType: BlockType.REPORTER
-        },
-        {
-          opcode: 'getCountByLabel2',
-          text: Message.counts_label_2[this.locale],
-          blockType: BlockType.REPORTER
-        },
-        {
-          opcode: 'getCountByLabel3',
-          text: Message.counts_label_3[this.locale],
-          blockType: BlockType.REPORTER
-        },
-        {
-          opcode: 'getCountByLabel4',
-          text: Message.counts_label_4[this.locale],
-          blockType: BlockType.REPORTER
-        },
-        {
-          opcode: 'getCountByLabel5',
-          text: Message.counts_label_5[this.locale],
-          blockType: BlockType.REPORTER
-        },
-        {
-          opcode: 'getCountByLabel6',
-          text: Message.counts_label_6[this.locale],
-          blockType: BlockType.REPORTER
-        },
-        {
-          opcode: 'getCountByLabel7',
-          text: Message.counts_label_7[this.locale],
-          blockType: BlockType.REPORTER
-        },
-        {
-          opcode: 'getCountByLabel8',
-          text: Message.counts_label_8[this.locale],
-          blockType: BlockType.REPORTER
-        },
-        {
-          opcode: 'reset',
-          blockType: BlockType.COMMAND,
-          text: Message.reset[this.locale],
-          arguments: {
-            LABEL: {
-              type: ArgumentType.STRING,
-              menu: 'reset_menu',
-              defaultValue: 'all'
             }
           }
         },
@@ -370,16 +168,6 @@ class Scratch3TM2ScratchBlocks {
           opcode: 'getImageLabel',
           text: Message.image_label[this.locale],
           blockType: BlockType.REPORTER
-        },
-        {
-          opcode: 'download',
-          text: Message.download_learning_data[this.locale],
-          blockType: BlockType.COMMAND
-        },
-        {
-          opcode: 'upload',
-          text: Message.upload_learning_data[this.locale],
-          blockType: BlockType.COMMAND
         },
         {
           opcode: 'toggleClassification',
@@ -420,45 +208,11 @@ class Scratch3TM2ScratchBlocks {
       ],
       menus: {
         received_menu: 'getLabelsMenu',
-        reset_menu: this.getMenu('reset'),
-        train_menu: this.getTrainMenu(),
         video_menu: this.getVideoMenu(),
         classification_interval_menu: this.getClassificationIntervalMenu(),
         classification_menu: this.getClassificationMenu()
       }
     };
-  }
-
-  addExample1() {
-    if (this.actionRepeated()) { return };
-    this.firstTrainingWarning();
-    let features = this.featureExtractor.infer(this.video);
-    this.knnClassifier.addExample(features, '1');
-    this.updateCounts();
-  }
-
-  addExample2() {
-    if (this.actionRepeated()) { return };
-    this.firstTrainingWarning();
-    let features = this.featureExtractor.infer(this.video);
-    this.knnClassifier.addExample(features, '2');
-    this.updateCounts();
-  }
-
-  addExample3() {
-    if (this.actionRepeated()) { return };
-    this.firstTrainingWarning();
-    let features = this.featureExtractor.infer(this.video);
-    this.knnClassifier.addExample(features, '3');
-    this.updateCounts();
-  }
-
-  train(args) {
-    if (this.actionRepeated()) { return };
-    this.firstTrainingWarning();
-    let features = this.featureExtractor.infer(this.video);
-    this.knnClassifier.addExample(features, args.LABEL);
-    this.updateCounts();
   }
 
   getLabel() {
@@ -483,91 +237,6 @@ class Scratch3TM2ScratchBlocks {
       }
       return false;
     }
-  }
-
-  getCountByLabel1() {
-    if (this.counts) {
-      return this.counts['1'];
-    } else {
-      return 0;
-    }
-  }
-
-  getCountByLabel2() {
-    if (this.counts) {
-      return this.counts['2'];
-    } else {
-      return 0;
-    }
-  }
-
-  getCountByLabel3() {
-    if (this.counts) {
-      return this.counts['3'];
-    } else {
-      return 0;
-    }
-  }
-
-  getCountByLabel4() {
-    if (this.counts) {
-      return this.counts['4'];
-    } else {
-      return 0;
-    }
-  }
-
-  getCountByLabel5() {
-    if (this.counts) {
-      return this.counts['5'];
-    } else {
-      return 0;
-    }
-  }
-
-  getCountByLabel6() {
-    if (this.counts) {
-      return this.counts['6'];
-    } else {
-      return 0;
-    }
-  }
-
-  getCountByLabel7() {
-    if (this.counts) {
-      return this.counts['7'];
-    } else {
-      return 0;
-    }
-  }
-
-  getCountByLabel8() {
-    if (this.counts) {
-      return this.counts['8'];
-    } else {
-      return 0;
-    }
-  }
-
-  reset(args) {
-    if (this.actionRepeated()) { return };
-
-    setTimeout(() => {
-      let result = confirm(Message.confirm_reset[this.locale]);
-      if (result) {
-        if (args.LABEL == 'all') {
-          this.knnClassifier.clearAllLabels();
-          for(let i = 1; i <= 8; i++) {
-            this.counts[i] = 0;
-          }
-        } else {
-          if (this.counts[args.LABEL] > 0) {
-            this.knnClassifier.clearLabel(args.LABEL);
-            this.counts[args.LABEL] = 0;
-          }
-        }
-      }
-    }, 1000);
   }
 
   /**
@@ -620,7 +289,7 @@ class Scratch3TM2ScratchBlocks {
   }
 
   /**
-   * Pick a probability which has highest confidence. 
+   * Pick a probability which has highest confidence.
    * @param {Array} probabilities - An Array of probabilities.
    * @property {number} probabilities.confidence - Probability of the label.
    * @return {Object} - One of the highest confidence probability.
@@ -638,7 +307,7 @@ class Scratch3TM2ScratchBlocks {
 
   /**
    * Classify image from the video input.
-   * 
+   *
    * @return {Promise} - a Promise that resolves after classification.
    */
   classifyVideoImage() {
@@ -656,7 +325,7 @@ class Scratch3TM2ScratchBlocks {
 
   /**
    * Classyfy image from input data source.
-   * 
+   *
    * @param {HTMLImageElement | ImageData | HTMLCanvasElement | HTMLVideoElement} input - Data source for classification.
    * @return {Promise} - A Promise that resolves the result of classification. The result will be empty when the imageClassifier was not set.
    */
@@ -674,34 +343,6 @@ class Scratch3TM2ScratchBlocks {
   getImageLabel() {
     if (!this.imageProbableLabels || this.imageProbableLabels.length == 0) return '';
     return this.getMostProbableOne(this.imageProbableLabels).label;
-  }
-
-  download() {
-    if (this.actionRepeated()) { return };
-    let fileName = String(Date.now());
-    this.knnClassifier.save(fileName);
-  }
-
-  upload() {
-    if (this.actionRepeated()) { return };
-    let width = 480;
-    let height = 200;
-    let left = window.innerWidth / 2;
-    let top = window.innerHeight / 2;
-    let x = left - (width / 2);
-    let y = top - (height / 2);
-    uploadWindow = window.open('', null, 'top=' + y + ',left=' + x + ',width=' + width + ',height=' + height);
-    uploadWindow.document.open();
-    uploadWindow.document.write('<html><head><title>' + Message.upload_learning_data[this.locale] + '</title></head><body>');
-    uploadWindow.document.write('<p>' + Message.upload_instruction[this.locale] + '</p>');
-    uploadWindow.document.write('<input type="file" id="upload-files">');
-    uploadWindow.document.write('<input type="button" value="' + Message.upload[this.locale] + '" id="upload-button">');
-    uploadWindow.document.write('</body></html>');
-    uploadWindow.document.close();
-
-    uploadWindow.document.getElementById("upload-button").onclick = () =>{
-      this.uploadButtonClicked(uploadWindow);
-    }
   }
 
   toggleClassification (args) {
@@ -743,34 +384,6 @@ class Scratch3TM2ScratchBlocks {
     }
   }
 
-  uploadButtonClicked(uploadWindow) {
-    let files = uploadWindow.document.getElementById('upload-files').files;
-
-    if (files.length <= 0) {
-      alert('Please select JSON file.');
-      return false;
-    }
-
-    let fr = new FileReader();
-
-    fr.onload = (e) => {
-      let data = JSON.parse(e.target.result);
-      this.knnClassifier.load(data, () => {
-        console.log('uploaded!');
-
-        this.updateCounts();
-        alert(Message.uploaded[this.locale]);
-      });
-    }
-
-    fr.onloadend = (e) => {
-      uploadWindow.document.getElementById('upload-files').value = "";
-    }
-
-    fr.readAsText(files.item(0));
-    uploadWindow.close();
-  }
-
   classify() {
     let numLabels = this.knnClassifier.getNumLabels();
     if (numLabels == 0) return;
@@ -787,10 +400,6 @@ class Scratch3TM2ScratchBlocks {
     });
   }
 
-  updateCounts() {
-    this.counts = this.knnClassifier.getCountByLabel();
-  }
-
   actionRepeated() {
     let currentTime = Date.now();
     if (this.blockClickedAt && (this.blockClickedAt + 250) > currentTime) {
@@ -801,35 +410,6 @@ class Scratch3TM2ScratchBlocks {
       this.blockClickedAt = currentTime;
       return false;
     }
-  }
-
-  getMenu(name) {
-    let arr = [];
-    let defaultValue = 'any';
-    let text = Message.any[this.locale];
-    if (name == 'reset') {
-      defaultValue = 'all';
-      text = Message.all[this.locale];
-    }
-    arr.push({text: text, value: defaultValue});
-    for(let i = 1; i <= 8; i++) {
-      let obj = {};
-      obj.text = i.toString(10);
-      obj.value = i.toString(10);
-      arr.push(obj);
-    };
-    return arr;
-  }
-
-  getTrainMenu() {
-    let arr = [];
-    for(let i = 4; i <= 8; i++) {
-      let obj = {};
-      obj.text = i.toString(10);
-      obj.value = i.toString(10);
-      arr.push(obj);
-    };
-    return arr;
   }
 
   getVideoMenu() {
@@ -881,13 +461,6 @@ class Scratch3TM2ScratchBlocks {
         value: 'on'
       }
     ]
-  }
-
-  firstTrainingWarning() {
-    if (this.firstTraining) {
-      alert(Message.first_training_warning[this.locale]);
-      this.firstTraining = false;
-    }
   }
 
   setLocale() {
