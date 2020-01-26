@@ -111,7 +111,7 @@ class Scratch3TM2ScratchBlocks {
 
         this.knnClassifier = ml5.KNNClassifier();
         this.featureExtractor = ml5.featureExtractor('MobileNet', () => {
-            console.log('[featureExtractor] Model Loaded!');
+            log.log('[featureExtractor] Model Loaded!');
             this.timer = setInterval(() => {
                 this.classify();
             }, this.interval);
@@ -397,7 +397,7 @@ class Scratch3TM2ScratchBlocks {
         const features = this.featureExtractor.infer(this.video);
         this.knnClassifier.classify(features, (err, result) => {
             if (err) {
-                console.error(err);
+                log.error(err);
             } else {
                 this.label = result.label;
                 this.when_received = true;
@@ -409,7 +409,7 @@ class Scratch3TM2ScratchBlocks {
     actionRepeated () {
         const currentTime = Date.now();
         if (this.blockClickedAt && (this.blockClickedAt + 250) > currentTime) {
-            console.log('Please do not repeat trigerring this block.');
+            log.log('Please do not repeat trigerring this block.');
             this.blockClickedAt = currentTime;
             return true;
         }
