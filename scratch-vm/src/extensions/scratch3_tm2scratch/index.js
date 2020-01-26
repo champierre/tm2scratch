@@ -293,7 +293,7 @@ class Scratch3TM2ScratchBlocks {
    * @return {object} - One of the highest confidence probability.
    */
     getMostProbableOne (probabilities) {
-        if (probabilities.length == 0) return null;
+        if (probabilities.length === 0) return null;
         let mostOne = probabilities[0];
         probabilities.forEach(clss => {
             if (clss.confidence > mostOne.confidence) {
@@ -341,7 +341,7 @@ class Scratch3TM2ScratchBlocks {
    * @return {string} label
    */
     getImageLabel () {
-        if (!this.imageProbableLabels || this.imageProbableLabels.length == 0) return '';
+        if (!this.imageProbableLabels || this.imageProbableLabels.length === 0) return '';
         return this.getMostProbableOne(this.imageProbableLabels).label;
     }
 
@@ -392,7 +392,7 @@ class Scratch3TM2ScratchBlocks {
 
     classify () {
         const numLabels = this.knnClassifier.getNumLabels();
-        if (numLabels == 0) return;
+        if (numLabels === 0) return;
 
         const features = this.featureExtractor.infer(this.video);
         this.knnClassifier.classify(features, (err, result) => {
