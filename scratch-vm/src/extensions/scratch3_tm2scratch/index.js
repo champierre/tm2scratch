@@ -8,6 +8,11 @@ const formatMessage = require('format-message');
 const HAT_TIMEOUT = 100;
 
 const Message = {
+    image_classification_model_url: {
+        'ja': '画像分類モデルURL[URL]',
+        'ja-Hira': 'がぞうぶんるいもでる[URL]',
+        'en': 'image classification model URL [URL]'
+    },
     classify_image: {
         'ja': '画像を分類する',
         'ja-Hira': 'がぞうをぶんるいする',
@@ -149,8 +154,8 @@ class Scratch3TM2ScratchBlocks {
                     }
                 },
                 {
-                    opcode: 'useModelURL',
-                    text: 'model URL [URL]',
+                    opcode: 'setImageClassificationModelURL',
+                    text: Message.image_classification_model_url[this.locale],
                     blockType: BlockType.COMMAND,
                     arguments: {
                         URL: {
@@ -240,13 +245,13 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-  * Load a model from URL.
+  * Set a model for image classification from URL.
   * @param {object} args - the block's arguments.
   * @property {string} URL - URL of model to be loaded.
   * @return {Promise} - A Promise that resolve after loaded.
   */
-    useModelURL (args) {
-        return this.loadModelFromURL(args.URL);
+    setImageClassificationModelURL (args) {
+        return this.loadImageClassificationModelFromURL(args.URL);
     }
 
     /**
@@ -254,8 +259,8 @@ class Scratch3TM2ScratchBlocks {
    * @param {string} url - URL of model to be loaded.
    * @return {Promise} - A Promise that resolves after loaded.
    */
-    loadModelFromURL (url) {
-        return new Promise((resolve, reject) => {
+    loadImageClassificationModelFromURL (url) {
+        return new Promise(resolve => {
             fetch(`${url}metadata.json`)
                 .then(res => res.json())
                 .then(metadata => {
