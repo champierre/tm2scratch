@@ -309,11 +309,19 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-   * Classify image from the video input.
-   *
-   * @return {Promise} - a Promise that resolves after classification.
-   */
-    classifyVideoImage () {
+     * Classify image from the video input.
+     * Call stack will wait until the previous classification was done.
+     *
+     * @param {object} args - the block's arguments.
+     * @param {object} util - utility object provided by the runtime.
+     * @return {Promise} - a Promise that resolves after classification.
+     */
+    classifyVideoImage (_args, util) {
+        if (this._isImageClassifying) {
+            if (util) util.yield();
+            return;
+        }
+        this._isImageClassifying = true;
         return new Promise((resolve, reject) => {
             this.classifyImage(this.video)
                 .then(result => {
@@ -322,6 +330,9 @@ class Scratch3TM2ScratchBlocks {
                 })
                 .catch(error => {
                     reject(error);
+                })
+                .finally(() => {
+                    this._isImageClassifying = false;
                 });
         });
     }
