@@ -88,9 +88,6 @@ const AvailableLocales = ['en', 'ja', 'ja-Hira', 'zh-cn'];
 class Scratch3TM2ScratchBlocks {
     constructor (runtime) {
         this.runtime = runtime;
-        this.when_received = false;
-        this.when_received_arr = Array(8).fill(false);
-        this.label = null;
         this.locale = this.setLocale();
 
         this.video = document.createElement('video');
@@ -136,11 +133,6 @@ class Scratch3TM2ScratchBlocks {
             id: 'tm2scratch',
             name: 'TM2Scratch',
             blocks: [
-                {
-                    opcode: 'getLabel',
-                    text: Message.label_block[this.locale],
-                    blockType: BlockType.REPORTER
-                },
                 {
                     opcode: 'whenReceived',
                     text: Message.when_received_block[this.locale],
@@ -218,10 +210,6 @@ class Scratch3TM2ScratchBlocks {
                 classification_menu: this.getClassificationMenu()
             }
         };
-    }
-
-    getLabel () {
-        return this.label;
     }
 
     whenReceived (args) {
