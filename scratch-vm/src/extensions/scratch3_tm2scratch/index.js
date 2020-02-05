@@ -225,23 +225,11 @@ class Scratch3TM2ScratchBlocks {
     }
 
     whenReceived (args) {
-        if (args.LABEL === 'any') {
-            if (this.when_received) {
-                setTimeout(() => {
-                    this.when_received = false;
-                }, HAT_TIMEOUT);
-                return true;
-            }
-            return false;
+        const label = this.getImageLabel();
+        if (args.LABEL === Message.any[this.locale]) {
+            return label !== '';
         }
-        if (this.when_received_arr[args.LABEL]) {
-            setTimeout(() => {
-                this.when_received_arr[args.LABEL] = false;
-            }, HAT_TIMEOUT);
-            return true;
-        }
-        return false;
-        
+        return label === args.LABEL;
     }
 
     /**
@@ -354,6 +342,7 @@ class Scratch3TM2ScratchBlocks {
 
     /**
    * Get the most probable label in the image.
+   * Retrun the last classification result or '' when the first classification was not done.
    * @return {string} label
    */
     getImageLabel () {
