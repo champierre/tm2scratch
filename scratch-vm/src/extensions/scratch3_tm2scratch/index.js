@@ -5,8 +5,6 @@ const log = require('../../util/log');
 const ml5 = require('../ml5.min.js');
 const formatMessage = require('format-message');
 
-const HAT_TIMEOUT = 100;
-
 const Message = {
     image_classification_model_url: {
         'ja': '画像分類モデルURL[URL]',
