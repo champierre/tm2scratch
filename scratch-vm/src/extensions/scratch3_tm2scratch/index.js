@@ -120,9 +120,13 @@ class Scratch3TM2ScratchBlocks {
 
         this.imageMetadata = null;
         this.imageClassifier = null;
-        this.imageProbableLabels = [];
+        this.initImageProbableLabels();
 
         this.runtime.ioDevices.video.enableVideo();
+    }
+
+    initImageProbableLabels () {
+        this.imageProbableLabels = [];
     }
 
     getInfo () {
@@ -253,7 +257,7 @@ class Scratch3TM2ScratchBlocks {
                         .then(classifier => {
                             this.imageMetadata = metadata;
                             this.imageClassifier = classifier;
-                            this.imageProbableLabels = [];
+                            this.initImageProbableLabels();
                             log.info(`image model loaded from: ${url}`);
                         })
                         .catch(error => {
@@ -317,13 +321,19 @@ class Scratch3TM2ScratchBlocks {
    *  The result will be empty when the imageClassifier was not set.
    */
     classifyImage (input) {
+        // Initialize probabilities to reset whenReceived blocks.
+        this.initImageProbableLabels();
         if (!this.imageMetadata || !this.imageClassifier) {
+            this._isImageClassifying = false;
             return Promise.resolve([]);
         }
         this._isImageClassifying = true;
         return this.imageClassifier.classify(input)
             .then(result => {
-                this.imageProbableLabels = result;
+                // Yield some frames to evaluate whenReceive blocks.
+                setTimeout(() => {
+                    this.imageProbableLabels = result.slice();
+                }, 1);
                 return result;
             })
             .finally(() => {
