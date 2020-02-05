@@ -102,6 +102,7 @@ class Scratch3TM2ScratchBlocks {
         this.blockClickedAt = null;
 
         this.interval = 1000;
+        this.minInterval = 100;
 
         const media = navigator.mediaDevices.getUserMedia({
             video: true,
@@ -112,13 +113,10 @@ class Scratch3TM2ScratchBlocks {
             this.video.srcObject = stream;
         });
 
-        this.knnClassifier = ml5.KNNClassifier();
-        this.featureExtractor = ml5.featureExtractor('MobileNet', () => {
-            log.log('[featureExtractor] Model Loaded!');
-            this.timer = setInterval(() => {
-                this.classify();
-            }, this.interval);
-        });
+        this.timer = setInterval(() => {
+            log.log('auto image classification started!');
+            this.classifyVideoImage();
+        }, this.minInterval);
 
         this.imageMetadata = null;
         this.imageClassifier = null;
@@ -163,7 +161,7 @@ class Scratch3TM2ScratchBlocks {
                     }
                 },
                 {
-                    opcode: 'classifyVideoImage',
+                    opcode: 'classifyVideoImageBlock',
                     text: Message.classify_image[this.locale],
                     blockType: BlockType.COMMAND
                 },
@@ -302,25 +300,12 @@ class Scratch3TM2ScratchBlocks {
      * @param {object} util - utility object provided by the runtime.
      * @return {Promise} - a Promise that resolves after classification.
      */
-    classifyVideoImage (_args, util) {
+    classifyVideoImageBlock (_args, util) {
         if (this._isImageClassifying) {
             if (util) util.yield();
             return;
         }
-        this._isImageClassifying = true;
-        return new Promise((resolve, reject) => {
-            this.classifyImage(this.video)
-                .then(result => {
-                    this.imageProbableLabels = result;
-                    resolve();
-                })
-                .catch(error => {
-                    reject(error);
-                })
-                .finally(() => {
-                    this._isImageClassifying = false;
-                });
-        });
+        return this.classifyImage(this.video);
     }
 
     /**
@@ -335,7 +320,17 @@ class Scratch3TM2ScratchBlocks {
         if (!this.imageMetadata || !this.imageClassifier) {
             return Promise.resolve([]);
         }
-        return this.imageClassifier.classify(input);
+        this._isImageClassifying = true;
+        return this.imageClassifier.classify(input)
+            .then(result => {
+                this.imageProbableLabels = result;
+                return result;
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    this._isImageClassifying = false;
+                }, this.interval);
+            });
     }
 
     /**
@@ -359,8 +354,8 @@ class Scratch3TM2ScratchBlocks {
         }
         if (state === 'on') {
             this.timer = setInterval(() => {
-                this.classify();
-            }, this.interval);
+                this.classifyVideoImage();
+            }, this.minInterval);
         }
     }
 
@@ -375,8 +370,8 @@ class Scratch3TM2ScratchBlocks {
 
         this.interval = args.CLASSIFICATION_INTERVAL * 1000;
         this.timer = setInterval(() => {
-            this.classify();
-        }, this.interval);
+            this.classifyVideoImage();
+        }, this.minInterval);
     }
 
     videoToggle (args) {
@@ -393,20 +388,9 @@ class Scratch3TM2ScratchBlocks {
         }
     }
 
-    classify () {
-        const numLabels = this.knnClassifier.getNumLabels();
-        if (numLabels === 0) return;
-
-        const features = this.featureExtractor.infer(this.video);
-        this.knnClassifier.classify(features, (err, result) => {
-            if (err) {
-                log.error(err);
-            } else {
-                this.label = result.label;
-                this.when_received = true;
-                this.when_received_arr[result.label] = true;
-            }
-        });
+    classifyVideoImage () {
+        if (this._isImageClassifying) return Promise.reject('imageClassifier is busy');
+        return this.classifyImage(this.video);
     }
 
     actionRepeated () {
