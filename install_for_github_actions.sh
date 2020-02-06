@@ -17,7 +17,7 @@ ML2SCRATCH="\
     {${LF}\
         name: 'TM2Scratch',${LF}\
         extensionId: 'tm2scratch',${LF}\
-        collaborator: 'Tsukurusha & Yengawa Lab & Google',${LF}\
+        collaborator: 'Tsukurusha, Yengawa Lab and Google',${LF}\
         iconURL: tm2scratchIconURL,${LF}\
         insetIconURL: tm2scratchInsetIconURL,${LF}\
         description: (${LF}\
