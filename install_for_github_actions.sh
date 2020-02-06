@@ -17,12 +17,12 @@ ML2SCRATCH="\
     {${LF}\
         name: 'TM2Scratch',${LF}\
         extensionId: 'tm2scratch',${LF}\
-        collaborator: 'つくる社 & Yengawa Lab & Google',${LF}\
+        collaborator: 'Tsukurusha & Yengawa Lab & Google',${LF}\
         iconURL: tm2scratchIconURL,${LF}\
         insetIconURL: tm2scratchInsetIconURL,${LF}\
         description: (${LF}\
             <FormattedMessage${LF}\
-                defaultMessage='TM2Scratch Blocks.'${LF}\
+                defaultMessage='画像や音声を学習させよう。'${LF}\
                 description='TM2Scratch Blocks'${LF}\
                 id='gui.extension.tm2scratchblocks.description'${LF}\
             />${LF}\
