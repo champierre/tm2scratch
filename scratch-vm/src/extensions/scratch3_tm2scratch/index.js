@@ -11,7 +11,7 @@ const HAT_TIMEOUT = 100;
 const Message = {
     image_classification_model_url: {
         'ja': '画像分類モデルURL[URL]',
-        'ja-Hira': 'がぞうぶんるいもでる[URL]',
+        'ja-Hira': 'がぞうぶんるいモデル[URL]',
         'en': 'image classification model URL [URL]'
     },
     classify_image: {
