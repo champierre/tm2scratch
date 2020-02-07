@@ -3,7 +3,12 @@
   <script type="text/javascript">
    function gate() {
       var UserInput = prompt("Please input the password:","");
-      location.href = UserInput + ".html";
+      if( /\W+/g.test(UserInput) ) {
+         alert("Error!");
+      }
+      else if( UserInput != null ) {
+         location.href = UserInput + ".html";
+      }
    }
   </script>
 </head>
