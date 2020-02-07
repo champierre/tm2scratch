@@ -20,6 +20,8 @@ jobs:
           path: ./tm2scratch
       - run: sh ./tm2scratch/install_for_github_actions.sh
       - run: npm run build
+      - run: mv ./build/index.html ./build/${{ secrets.GATE_PASSWORD }}.html
+      - run: cp ./tm2scratch/index.html ./build/index.html
       - uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
