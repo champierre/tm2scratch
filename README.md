@@ -2,6 +2,8 @@
 
 [UNDER CONSTRUCTION] Connect Google Teachable Machine with Scratch
 
+http://champierre.github.io/tm2scratch
+
 ## For Developers - How to add TM2Scratch extension to your (customized) Scratch
 
 1. Prepare LLK/scratch-gui on your local machine.
