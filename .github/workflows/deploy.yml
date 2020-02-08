@@ -31,3 +31,4 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: 'tm2scratch is deployed! :rocket:'
+          SLACK_ICON: https://champierre.github.io/tm2scratch/static/favicon.ico
