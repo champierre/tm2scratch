@@ -29,6 +29,7 @@ jobs:
           publish_dir: ./build
       - uses: rtCamp/action-slack-notify@v2.0.0
         env:
+          SLACK_USERNAME: TM2Scratch
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: 'tm2scratch is deployed! :rocket:'
           SLACK_ICON: https://champierre.github.io/tm2scratch/static/favicon.ico
