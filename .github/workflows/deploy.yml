@@ -22,6 +22,7 @@ jobs:
       - run: npm run build
       - run: mv ./build/index.html ./build/${{ secrets.GATE_PASSWORD }}.html
       - run: cp ./tm2scratch/index.html ./build/index.html
+      - run: cp ./tm2scratch/favicon.ico ./build/static/favicon.ico
       - uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
