@@ -1,0 +1,18 @@
+<html>
+<head>
+  <script type="text/javascript">
+   function gate() {
+      var UserInput = prompt("Please input the password:","");
+      if( /\W+/g.test(UserInput) ) {
+         alert("Error!");
+      }
+      else if( UserInput != null ) {
+         location.href = UserInput + ".html";
+      }
+   }
+  </script>
+</head>
+<body>
+  <input type="button" value="Password" onclick="gate();">
+</body>
+</html>
