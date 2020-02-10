@@ -19,7 +19,7 @@ const Message = {
     },
     image_label: {
         'ja': '画像ラベル',
-        'ja-Hira': 'がぞうらべる',
+        'ja-Hira': 'がぞうラベル',
         'en': 'image label'
     },
     when_received_block: {
