@@ -112,7 +112,6 @@ class Scratch3TM2ScratchBlocks {
         });
 
         this.timer = setInterval(() => {
-            log.log('auto image classification started!');
             this.classifyVideoImage();
         }, this.minInterval);
 
