@@ -388,7 +388,7 @@ class Scratch3TM2ScratchBlocks {
     }
 
     classifyVideoImage () {
-        if (this._isImageClassifying) return Promise.reject('imageClassifier is busy');
+        if (this._isImageClassifying) return Promise.resolve([]);
         return this.classifyImage(this.video);
     }
 
