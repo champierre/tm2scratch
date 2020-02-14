@@ -298,7 +298,12 @@ class Scratch3TM2ScratchBlocks {
             if (util) util.yield();
             return;
         }
-        return this.classifyImage(this.video);
+        return new Promise(resolve => {
+            this.classifyImage(this.video)
+                .then(result => {
+                    resolve(JSON.stringify(result));
+                });
+        });
     }
 
     /**
