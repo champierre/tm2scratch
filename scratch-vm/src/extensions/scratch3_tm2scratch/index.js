@@ -115,6 +115,7 @@ class Scratch3TM2ScratchBlocks {
             this.classifyVideoImage();
         }, this.minInterval);
 
+        this.imageModelUrl = null;
         this.imageMetadata = null;
         this.imageClassifier = null;
         this.initImageProbableLabels();
@@ -241,18 +242,24 @@ class Scratch3TM2ScratchBlocks {
             fetch(`${url}metadata.json`)
                 .then(res => res.json())
                 .then(metadata => {
-                    // TODO: timeStamp should be checked to decide update or not.
-                    ml5.imageClassifier(`${url}model.json`)
-                        .then(classifier => {
-                            this.imageMetadata = metadata;
-                            this.imageClassifier = classifier;
-                            this.initImageProbableLabels();
-                            log.info(`image model loaded from: ${url}`);
-                        })
-                        .catch(error => {
-                            log.warn(error);
-                        })
-                        .finally(() => resolve());
+                    if (url === this.imageModelUrl &&
+                        (new Date(metadata.timeStamp).getTime() === new Date(this.imageMetadata.timeStamp).getTime())) {
+                        log.info(`image model already loaded: ${url}`);
+                        resolve();
+                    } else {
+                        ml5.imageClassifier(`${url}model.json`)
+                            .then(classifier => {
+                                this.imageModelUrl = url;
+                                this.imageMetadata = metadata;
+                                this.imageClassifier = classifier;
+                                this.initImageProbableLabels();
+                                log.info(`image model loaded from: ${url}`);
+                            })
+                            .catch(error => {
+                                log.warn(error);
+                            })
+                            .finally(() => resolve());
+                    }
                 })
                 .catch(error => {
                     log.warn(error);
