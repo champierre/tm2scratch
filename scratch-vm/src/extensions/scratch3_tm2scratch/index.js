@@ -97,8 +97,6 @@ class Scratch3TM2ScratchBlocks {
         this.video.autoplay = true;
         this.video.style.display = 'none';
 
-        this.blockClickedAt = null;
-
         this.interval = 1000;
         this.minInterval = 100;
 
@@ -355,10 +353,6 @@ class Scratch3TM2ScratchBlocks {
     }
 
     toggleClassification (args) {
-        if (this.actionRepeated()) {
-            return;
-        }
-
         const state = args.CLASSIFICATION_STATE;
         if (this.timer) {
             clearTimeout(this.timer);
@@ -371,10 +365,6 @@ class Scratch3TM2ScratchBlocks {
     }
 
     setClassificationInterval (args) {
-        if (this.actionRepeated()) {
-            return;
-        }
-
         if (this.timer) {
             clearTimeout(this.timer);
         }
@@ -386,10 +376,6 @@ class Scratch3TM2ScratchBlocks {
     }
 
     videoToggle (args) {
-        if (this.actionRepeated()) {
-            return;
-        }
-
         const state = args.VIDEO_STATE;
         if (state === 'off') {
             this.runtime.ioDevices.video.disableVideo();
@@ -402,18 +388,6 @@ class Scratch3TM2ScratchBlocks {
     classifyVideoImage () {
         if (this._isImageClassifying) return Promise.resolve([]);
         return this.classifyImage(this.video);
-    }
-
-    actionRepeated () {
-        const currentTime = Date.now();
-        if (this.blockClickedAt && (this.blockClickedAt + 250) > currentTime) {
-            log.log('Please do not repeat trigerring this block.');
-            this.blockClickedAt = currentTime;
-            return true;
-        }
-        this.blockClickedAt = currentTime;
-        return false;
-
     }
 
     getVideoMenu () {
