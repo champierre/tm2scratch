@@ -28,6 +28,11 @@ const Message = {
         'en': 'when received label:[LABEL]',
         'zh-cn': '接收到类别[LABEL]时'
     },
+    is_image_label_detected: {
+        'ja': '[LABEL]の画像が見つかった',
+        'ja-Hira': '[LABEL]のがぞうがみつかった',
+        'en': 'image [LABEL] detected'
+    },
     label_block: {
         'ja': 'ラベル',
         'ja-Hira': 'ラベル',
@@ -146,6 +151,18 @@ class Scratch3TM2ScratchBlocks {
                     }
                 },
                 {
+                    opcode: 'isImageLabelDetected',
+                    text: Message.is_image_label_detected[this.locale],
+                    blockType: BlockType.BOOLEAN,
+                    arguments: {
+                        LABEL: {
+                            type: ArgumentType.STRING,
+                            menu: 'image_labels_menu',
+                            defaultValue: Message.any[this.locale]
+                        }
+                    }
+                },
+                {
                     opcode: 'setImageClassificationModelURL',
                     text: Message.image_classification_model_url[this.locale],
                     blockType: BlockType.COMMAND,
@@ -205,6 +222,7 @@ class Scratch3TM2ScratchBlocks {
             ],
             menus: {
                 received_menu: 'getLabelsMenu',
+                image_labels_menu: 'getLabelsMenu',
                 video_menu: this.getVideoMenu(),
                 classification_interval_menu: this.getClassificationIntervalMenu(),
                 classification_menu: this.getClassificationMenu()
@@ -213,6 +231,20 @@ class Scratch3TM2ScratchBlocks {
     }
 
     whenReceived (args) {
+        const label = this.getImageLabel();
+        if (args.LABEL === Message.any[this.locale]) {
+            return label !== '';
+        }
+        return label === args.LABEL;
+    }
+
+    /**
+     * Return whether the most probable image label is the selected one or not.
+     * @param {object} args - The block's arguments.
+     * @property {string} LABEL - The label to detect.
+     * @return {boolean} - Whether the label is most probable or not.
+     */
+    isImageLabelDetected (args) {
         const label = this.getImageLabel();
         if (args.LABEL === Message.any[this.locale]) {
             return label !== '';
