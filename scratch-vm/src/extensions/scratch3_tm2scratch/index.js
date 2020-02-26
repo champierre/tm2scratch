@@ -352,8 +352,6 @@ class Scratch3TM2ScratchBlocks {
    *  The result will be empty when the imageClassifier was not set.
    */
     classifyImage (input) {
-        // Initialize probabilities to reset whenReceived blocks.
-        this.initImageProbableLabels();
         if (!this.imageMetadata || !this.imageClassifier) {
             this._isImageClassifying = false;
             return Promise.resolve([]);
@@ -361,14 +359,14 @@ class Scratch3TM2ScratchBlocks {
         this._isImageClassifying = true;
         return this.imageClassifier.classify(input)
             .then(result => {
-                // Yield some frames to evaluate whenReceive blocks.
-                setTimeout(() => {
-                    this.imageProbableLabels = result.slice();
-                }, 1);
+                this.imageProbableLabels = result.slice();
+                this.imageProbableLabelsUpdated = true;
                 return result;
             })
             .finally(() => {
                 setTimeout(() => {
+                    // Initialize probabilities to reset whenReceived blocks.
+                    this.initImageProbableLabels();
                     this._isImageClassifying = false;
                 }, this.interval);
             });
