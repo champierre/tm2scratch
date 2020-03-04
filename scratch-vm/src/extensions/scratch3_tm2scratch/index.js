@@ -136,7 +136,7 @@ class Scratch3TM2ScratchBlocks {
 
         this.soundTimer = setInterval(() => {
             this.classifySound();
-        }, this.minInterval);
+        }, this.interval);
 
         this.imageModelUrl = null;
         this.imageMetadata = null;
@@ -146,6 +146,7 @@ class Scratch3TM2ScratchBlocks {
         this.soundModelUrl = null;
         this.soundMetadata = null;
         this.soundClassifier = null;
+        this.soundClassifierEnabled = true;
         this.initSoundProbableLabels();
 
         this.runtime.ioDevices.video.enableVideo();
@@ -192,6 +193,28 @@ class Scratch3TM2ScratchBlocks {
                     }
                 },
                 {
+                    opcode: 'setImageClassificationModelURL',
+                    text: Message.image_classification_model_url[this.locale],
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        URL: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'https://teachablemachine.withgoogle.com/models/TuzkGLdX/'
+                        }
+                    }
+                },
+                {
+                    opcode: 'classifyVideoImageBlock',
+                    text: Message.classify_image[this.locale],
+                    blockType: BlockType.COMMAND
+                },
+                {
+                    opcode: 'getImageLabel',
+                    text: Message.image_label[this.locale],
+                    blockType: BlockType.REPORTER
+                },
+                '---',
+                {
                     opcode: 'whenReceivedSoundLabel',
                     text: Message.when_received_sound_label_block[this.locale],
                     blockType: BlockType.HAT,
@@ -200,17 +223,6 @@ class Scratch3TM2ScratchBlocks {
                             type: ArgumentType.STRING,
                             menu: 'received_sound_label_menu',
                             defaultValue: Message.any[this.locale]
-                        }
-                    }
-                },
-                {
-                    opcode: 'setImageClassificationModelURL',
-                    text: Message.image_classification_model_url[this.locale],
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        URL: {
-                            type: ArgumentType.STRING,
-                            defaultValue: 'https://teachablemachine.withgoogle.com/models/TuzkGLdX/'
                         }
                     }
                 },
@@ -226,20 +238,11 @@ class Scratch3TM2ScratchBlocks {
                     }
                 },
                 {
-                    opcode: 'classifyVideoImageBlock',
-                    text: Message.classify_image[this.locale],
-                    blockType: BlockType.COMMAND
-                },
-                {
-                    opcode: 'getImageLabel',
-                    text: Message.image_label[this.locale],
-                    blockType: BlockType.REPORTER
-                },
-                {
                     opcode: 'getSoundLabel',
                     text: Message.sound_label[this.locale],
                     blockType: BlockType.REPORTER
                 },
+                '---',
                 {
                     opcode: 'toggleClassification',
                     text: Message.toggle_classification[this.locale],
@@ -279,9 +282,7 @@ class Scratch3TM2ScratchBlocks {
             ],
             menus: {
                 received_menu: 'getLabelsMenu',
-
                 image_labels_menu: 'getLabelsMenu',
-
                 received_sound_label_menu: 'getSoundLabelsMenu',
                 video_menu: this.getVideoMenu(),
                 classification_interval_menu: this.getClassificationIntervalMenu(),
@@ -506,6 +507,9 @@ class Scratch3TM2ScratchBlocks {
             return;
         }
         this.soundClassifier.classify((err, result) => {
+            if (!this.soundClassifierEnabled) {
+                return;
+            }
             if (err && err != 'ERROR: Cannot start streaming again when streaming is ongoing.') {
                 console.error(err);
             } else {
@@ -539,10 +543,18 @@ class Scratch3TM2ScratchBlocks {
         if (this.timer) {
             clearTimeout(this.timer);
         }
+        if (this.soundTimer) {
+            clearTimeout(this.soundTimer);
+            this.soundClassifierEnabled = false;
+        }
         if (state === 'on') {
             this.timer = setInterval(() => {
                 this.classifyVideoImage();
             }, this.minInterval);
+            this.soundClassifierEnabled = true;
+            this.soundTimer = setInterval(() => {
+                this.classifySound();
+            }, this.interval);
         }
     }
 
@@ -550,11 +562,16 @@ class Scratch3TM2ScratchBlocks {
         if (this.timer) {
             clearTimeout(this.timer);
         }
-
+        if (this.soundTimer) {
+            clearTimeout(this.soundTimer);
+        }
         this.interval = args.CLASSIFICATION_INTERVAL * 1000;
         this.timer = setInterval(() => {
             this.classifyVideoImage();
         }, this.minInterval);
+        this.soundTimer = setInterval(() => {
+            this.classifySound();
+        }, this.interval);
     }
 
     videoToggle (args) {
