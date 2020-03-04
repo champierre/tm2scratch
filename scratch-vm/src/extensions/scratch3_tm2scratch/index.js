@@ -12,6 +12,11 @@ const Message = {
         'ja-Hira': 'がぞうぶんるいモデル[URL]',
         'en': 'image classification model URL [URL]'
     },
+    sound_classification_model_url: {
+        'ja': '音声分類モデルURL[URL]',
+        'ja-Hira': 'おんせいぶんるいモデル[URL]',
+        'en': 'sound classification model URL [URL]'
+    },
     classify_image: {
         'ja': '画像を分類する',
         'ja-Hira': 'がぞうをぶんるいする',
@@ -21,6 +26,11 @@ const Message = {
         'ja': '画像ラベル',
         'ja-Hira': 'がぞうラベル',
         'en': 'image label'
+    },
+    sound_label: {
+        'ja': '音声ラベル',
+        'ja-Hira': 'おんせいラベル',
+        'en': 'sound label'
     },
     when_received_block: {
         'ja': 'ラベル[LABEL]を受け取ったとき',
@@ -32,6 +42,12 @@ const Message = {
         'ja': '[LABEL]の画像が見つかった',
         'ja-Hira': '[LABEL]のがぞうがみつかった',
         'en': 'image [LABEL] detected'
+    },
+    when_received_sound_label_block: {
+        'ja': '音声ラベル[LABEL]を受け取ったとき',
+        'ja-Hira': '音声ラベル[LABEL]をうけとったとき',
+        'en': 'when received sound label:[LABEL]',
+        'zh-cn': '接收到声音类别[LABEL]时'
     },
     label_block: {
         'ja': 'ラベル',
@@ -118,16 +134,30 @@ class Scratch3TM2ScratchBlocks {
             this.classifyVideoImage();
         }, this.minInterval);
 
+        this.soundTimer = setInterval(() => {
+            this.classifySound();
+        }, this.interval);
+
         this.imageModelUrl = null;
         this.imageMetadata = null;
         this.imageClassifier = null;
         this.initImageProbableLabels();
+
+        this.soundModelUrl = null;
+        this.soundMetadata = null;
+        this.soundClassifier = null;
+        this.soundClassifierEnabled = true;
+        this.initSoundProbableLabels();
 
         this.runtime.ioDevices.video.enableVideo();
     }
 
     initImageProbableLabels () {
         this.imageProbableLabels = [];
+    }
+
+    initSoundProbableLabels () {
+        this.soundProbableLabels = [];
     }
 
     getInfo () {
@@ -183,6 +213,36 @@ class Scratch3TM2ScratchBlocks {
                     text: Message.image_label[this.locale],
                     blockType: BlockType.REPORTER
                 },
+                '---',
+                {
+                    opcode: 'whenReceivedSoundLabel',
+                    text: Message.when_received_sound_label_block[this.locale],
+                    blockType: BlockType.HAT,
+                    arguments: {
+                        LABEL: {
+                            type: ArgumentType.STRING,
+                            menu: 'received_sound_label_menu',
+                            defaultValue: Message.any[this.locale]
+                        }
+                    }
+                },
+                {
+                    opcode: 'setSoundClassificationModelURL',
+                    text: Message.sound_classification_model_url[this.locale],
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        URL: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'https://teachablemachine.withgoogle.com/models/xP0spGSB/'
+                        }
+                    }
+                },
+                {
+                    opcode: 'getSoundLabel',
+                    text: Message.sound_label[this.locale],
+                    blockType: BlockType.REPORTER
+                },
+                '---',
                 {
                     opcode: 'toggleClassification',
                     text: Message.toggle_classification[this.locale],
@@ -223,6 +283,7 @@ class Scratch3TM2ScratchBlocks {
             menus: {
                 received_menu: 'getLabelsMenu',
                 image_labels_menu: 'getLabelsMenu',
+                received_sound_label_menu: 'getSoundLabelsMenu',
                 video_menu: this.getVideoMenu(),
                 classification_interval_menu: this.getClassificationIntervalMenu(),
                 classification_menu: this.getClassificationMenu()
@@ -232,6 +293,14 @@ class Scratch3TM2ScratchBlocks {
 
     whenReceived (args) {
         const label = this.getImageLabel();
+        if (args.LABEL === Message.any[this.locale]) {
+            return label !== '';
+        }
+        return label === args.LABEL;
+    }
+
+    whenReceivedSoundLabel (args) {
+        const label = this.getSoundLabel();
         if (args.LABEL === Message.any[this.locale]) {
             return label !== '';
         }
@@ -253,20 +322,30 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-  * Set a model for image classification from URL.
-  * @param {object} args - the block's arguments.
-  * @property {string} URL - URL of model to be loaded.
-  * @return {Promise} - A Promise that resolve after loaded.
-  */
+     * Set a model for image classification from URL.
+     * @param {object} args - the block's arguments.
+     * @property {string} URL - URL of model to be loaded.
+     * @return {Promise} - A Promise that resolve after loaded.
+     */
     setImageClassificationModelURL (args) {
         return this.loadImageClassificationModelFromURL(args.URL);
     }
 
     /**
-   * Load a model from URL for image classification.
-   * @param {string} url - URL of model to be loaded.
-   * @return {Promise} - A Promise that resolves after loaded.
-   */
+     * Set a model for sound classification from URL.
+     * @param {object} args - the block's arguments.
+     * @property {string} URL - URL of model to be loaded.
+     * @return {Promise} - A Promise that resolve after loaded.
+     */
+    setSoundClassificationModelURL (args) {
+        return this.loadSoundClassificationModelFromURL(args.URL);
+    }
+
+    /**
+     * Load a model from URL for image classification.
+     * @param {string} url - URL of model to be loaded.
+     * @return {Promise} - A Promise that resolves after loaded.
+     */
     loadImageClassificationModelFromURL (url) {
         return new Promise(resolve => {
             fetch(`${url}metadata.json`)
@@ -298,6 +377,42 @@ class Scratch3TM2ScratchBlocks {
         });
     }
 
+    /**
+     * Load a model from URL for sound classification.
+     * @param {string} url - URL of model to be loaded.
+     * @return {Promise} - A Promise that resolves after loaded.
+     */
+    loadSoundClassificationModelFromURL (url) {
+        return new Promise(resolve => {
+            fetch(`${url}metadata.json`)
+                .then(res => res.json())
+                .then(metadata => {
+                    if (url === this.soundModelUrl &&
+                        (new Date(metadata.timeStamp).getTime() === new Date(this.soundMetadata.timeStamp).getTime())) {
+                        log.info(`sound model already loaded: ${url}`);
+                        resolve();
+                    } else {
+                        ml5.soundClassifier(`${url}model.json`)
+                            .then(classifier => {
+                                this.soundModelUrl = url;
+                                this.soundMetadata = metadata;
+                                this.soundClassifier = classifier;
+                                this.initSoundProbableLabels();
+                                log.info(`sound model loaded from: ${url}`);
+                            })
+                            .catch(error => {
+                                log.warn(error);
+                            })
+                            .finally(() => resolve());
+                    }
+                })
+                .catch(error => {
+                    log.warn(error);
+                    resolve();
+                });
+        });
+    }
+
     getLabelsMenu () {
         let menu = [Message.any[this.locale]];
         if (!this.imageMetadata) return menu;
@@ -305,12 +420,19 @@ class Scratch3TM2ScratchBlocks {
         return menu;
     }
 
+    getSoundLabelsMenu () {
+        let menu = [Message.any[this.locale]];
+        if (!this.soundMetadata) return menu;
+        menu = menu.concat(this.soundMetadata.wordLabels);
+        return menu;
+    }
+
     /**
-   * Pick a probability which has highest confidence.
-   * @param {Array} probabilities - An Array of probabilities.
-   * @property {number} probabilities.confidence - Probability of the label.
-   * @return {object} - One of the highest confidence probability.
-   */
+     * Pick a probability which has highest confidence.
+     * @param {Array} probabilities - An Array of probabilities.
+     * @property {number} probabilities.confidence - Probability of the label.
+     * @return {object} - One of the highest confidence probability.
+     */
     getMostProbableOne (probabilities) {
         if (probabilities.length === 0) return null;
         let mostOne = probabilities[0];
@@ -344,13 +466,13 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-   * Classyfy image from input data source.
-   *
-   * @param {HTMLImageElement | ImageData | HTMLCanvasElement | HTMLVideoElement} input
-   *  - Data source for classification.
-   * @return {Promise} - A Promise that resolves the result of classification.
-   *  The result will be empty when the imageClassifier was not set.
-   */
+     * Classyfy image from input data source.
+     *
+     * @param {HTMLImageElement | ImageData | HTMLCanvasElement | HTMLVideoElement} input
+     *  - Data source for classification.
+     * @return {Promise} - A Promise that resolves the result of classification.
+     *  The result will be empty when the imageClassifier was not set.
+     */
     classifyImage (input) {
         // Initialize probabilities to reset whenReceived blocks.
         this.initImageProbableLabels();
@@ -375,13 +497,45 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-   * Get the most probable label in the image.
-   * Retrun the last classification result or '' when the first classification was not done.
-   * @return {string} label
-   */
+     * Classyfy sound.
+     *
+     * @return {Promise} - A Promise that resolves the result of classification.
+     *  The result will be empty when the soundClassifier was not set.
+     */
+    classifySound () {
+        if (!this.soundMetadata || !this.soundClassifier) {
+            return;
+        }
+        this.soundClassifier.classify((err, result) => {
+            if (!this.soundClassifierEnabled) {
+                return;
+            }
+            if (err && err != 'ERROR: Cannot start streaming again when streaming is ongoing.') {
+                console.error(err);
+            } else {
+                this.soundProbableLabels = result;
+            }
+        });
+    }
+
+    /**
+     * Get the most probable label in the image.
+     * Retrun the last classification result or '' when the first classification was not done.
+     * @return {string} label
+    */
     getImageLabel () {
         if (!this.imageProbableLabels || this.imageProbableLabels.length === 0) return '';
         return this.getMostProbableOne(this.imageProbableLabels).label;
+    }
+
+    /**
+     * Get the most probable label in the sound.
+     * Retrun the last classification result or '' when the first classification was not done.
+     * @return {string} label
+    */
+    getSoundLabel () {
+        if (!this.soundProbableLabels || this.soundProbableLabels.length === 0) return '';
+        return this.getMostProbableOne(this.soundProbableLabels).label;
     }
 
     toggleClassification (args) {
@@ -389,10 +543,18 @@ class Scratch3TM2ScratchBlocks {
         if (this.timer) {
             clearTimeout(this.timer);
         }
+        if (this.soundTimer) {
+            clearTimeout(this.soundTimer);
+            this.soundClassifierEnabled = false;
+        }
         if (state === 'on') {
             this.timer = setInterval(() => {
                 this.classifyVideoImage();
             }, this.minInterval);
+            this.soundClassifierEnabled = true;
+            this.soundTimer = setInterval(() => {
+                this.classifySound();
+            }, this.interval);
         }
     }
 
@@ -400,11 +562,16 @@ class Scratch3TM2ScratchBlocks {
         if (this.timer) {
             clearTimeout(this.timer);
         }
-
+        if (this.soundTimer) {
+            clearTimeout(this.soundTimer);
+        }
         this.interval = args.CLASSIFICATION_INTERVAL * 1000;
         this.timer = setInterval(() => {
             this.classifyVideoImage();
         }, this.minInterval);
+        this.soundTimer = setInterval(() => {
+            this.classifySound();
+        }, this.interval);
     }
 
     videoToggle (args) {
