@@ -438,24 +438,27 @@ class Scratch3TM2ScratchBlocks {
     }
 
     getClassificationIntervalMenu () {
-        return [
-            {
-                text: '1',
-                value: '1'
-            },
-            {
-                text: '0.5',
-                value: '0.5'
-            },
-            {
-                text: '0.2',
-                value: '0.2'
-            },
-            {
-                text: '0.1',
-                value: '0.1'
-            }
-        ];
+        return {
+            acceptReporters: true,
+            items: [
+                {
+                    text: '1',
+                    value: '1'
+                },
+                {
+                    text: '0.5',
+                    value: '0.5'
+                },
+                {
+                    text: '0.2',
+                    value: '0.2'
+                },
+                {
+                    text: '0.1',
+                    value: '0.1'
+                }
+            ]
+        };
     }
 
     getClassificationMenu () {
