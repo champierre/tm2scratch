@@ -289,20 +289,20 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-  * Set a model for image classification from URL.
-  * @param {object} args - the block's arguments.
-  * @property {string} URL - URL of model to be loaded.
-  * @return {Promise} - A Promise that resolve after loaded.
-  */
+     * Set a model for image classification from URL.
+     * @param {object} args - the block's arguments.
+     * @property {string} URL - URL of model to be loaded.
+     * @return {Promise} - A Promise that resolve after loaded.
+     */
     setImageClassificationModelURL (args) {
         return this.loadImageClassificationModelFromURL(args.URL);
     }
 
     /**
-   * Load a model from URL for image classification.
-   * @param {string} url - URL of model to be loaded.
-   * @return {Promise} - A Promise that resolves after loaded.
-   */
+     * Load a model from URL for image classification.
+     * @param {string} url - URL of model to be loaded.
+     * @return {Promise} - A Promise that resolves after loaded.
+     */
     loadImageClassificationModelFromURL (url) {
         return new Promise(resolve => {
             fetch(`${url}metadata.json`)
@@ -350,11 +350,11 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-   * Pick a probability which has highest confidence.
-   * @param {Array} probabilities - An Array of probabilities.
-   * @property {number} probabilities.confidence - Probability of the label.
-   * @return {object} - One of the highest confidence probability.
-   */
+     * Pick a probability which has highest confidence.
+     * @param {Array} probabilities - An Array of probabilities.
+     * @property {number} probabilities.confidence - Probability of the label.
+     * @return {object} - One of the highest confidence probability.
+     */
     getMostProbableOne (probabilities) {
         if (probabilities.length === 0) return null;
         let mostOne = probabilities[0];
@@ -388,13 +388,13 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-   * Classyfy image from input data source.
-   *
-   * @param {HTMLImageElement | ImageData | HTMLCanvasElement | HTMLVideoElement} input
-   *  - Data source for classification.
-   * @return {Promise} - A Promise that resolves the result of classification.
-   *  The result will be empty when the imageClassifier was not set.
-   */
+     * Classyfy image from input data source.
+     *
+     * @param {HTMLImageElement | ImageData | HTMLCanvasElement | HTMLVideoElement} input
+     *  - Data source for classification.
+     * @return {Promise} - A Promise that resolves the result of classification.
+     *  The result will be empty when the imageClassifier was not set.
+     */
     classifyImage (input) {
         if (!this.imageMetadata || !this.imageClassifier) {
             this._isImageClassifying = false;
