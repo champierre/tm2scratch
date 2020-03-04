@@ -239,8 +239,14 @@ class Scratch3TM2ScratchBlocks {
                 }
             ],
             menus: {
-                received_menu: 'getLabelsMenu',
-                image_labels_menu: 'getLabelsMenu',
+                received_menu: {
+                    acceptReporters: true,
+                    items: 'getLabelsMenu'
+                },
+                image_labels_menu: {
+                    acceptReporters: true,
+                    items: 'getLabelsMenu'
+                },
                 image_labels_without_any_menu: {
                     acceptReporters: true,
                     items: 'getLabelsWithoutAnyMenu'
@@ -335,10 +341,10 @@ class Scratch3TM2ScratchBlocks {
     }
 
     getLabelsMenu () {
-        let menu = [Message.any[this.locale]];
-        if (!this.imageMetadata) return menu;
-        menu = menu.concat(this.imageMetadata.labels);
-        return menu;
+        let items = [Message.any[this.locale]];
+        if (!this.imageMetadata) return items;
+        items = items.concat(this.imageMetadata.labels);
+        return items;
     }
 
     getLabelsWithoutAnyMenu () {
