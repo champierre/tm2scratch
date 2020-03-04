@@ -43,6 +43,12 @@ const Message = {
         'ja-Hira': '[LABEL]のがぞうがみつかった',
         'en': 'image [LABEL] detected'
     },
+    when_received_sound_label_block: {
+        'ja': '音声ラベル[LABEL]を受け取ったとき',
+        'ja-Hira': '音声ラベル[LABEL]をうけとったとき',
+        'en': 'when received sound label:[LABEL]',
+        'zh-cn': '接收到声音类别[LABEL]时'
+    },
     label_block: {
         'ja': 'ラベル',
         'ja-Hira': 'ラベル',
@@ -186,6 +192,18 @@ class Scratch3TM2ScratchBlocks {
                     }
                 },
                 {
+                    opcode: 'whenReceivedSoundLabel',
+                    text: Message.when_received_sound_label_block[this.locale],
+                    blockType: BlockType.HAT,
+                    arguments: {
+                        LABEL: {
+                            type: ArgumentType.STRING,
+                            menu: 'received_sound_label_menu',
+                            defaultValue: Message.any[this.locale]
+                        }
+                    }
+                },
+                {
                     opcode: 'setImageClassificationModelURL',
                     text: Message.image_classification_model_url[this.locale],
                     blockType: BlockType.COMMAND,
@@ -261,7 +279,10 @@ class Scratch3TM2ScratchBlocks {
             ],
             menus: {
                 received_menu: 'getLabelsMenu',
+
                 image_labels_menu: 'getLabelsMenu',
+
+                received_sound_label_menu: 'getSoundLabelsMenu',
                 video_menu: this.getVideoMenu(),
                 classification_interval_menu: this.getClassificationIntervalMenu(),
                 classification_menu: this.getClassificationMenu()
@@ -271,6 +292,14 @@ class Scratch3TM2ScratchBlocks {
 
     whenReceived (args) {
         const label = this.getImageLabel();
+        if (args.LABEL === Message.any[this.locale]) {
+            return label !== '';
+        }
+        return label === args.LABEL;
+    }
+
+    whenReceivedSoundLabel (args) {
+        const label = this.getSoundLabel();
         if (args.LABEL === Message.any[this.locale]) {
             return label !== '';
         }
@@ -390,6 +419,13 @@ class Scratch3TM2ScratchBlocks {
         return menu;
     }
 
+    getSoundLabelsMenu () {
+        let menu = [Message.any[this.locale]];
+        if (!this.soundMetadata) return menu;
+        menu = menu.concat(this.soundMetadata.wordLabels);
+        return menu;
+    }
+
     /**
      * Pick a probability which has highest confidence.
      * @param {Array} probabilities - An Array of probabilities.
@@ -476,27 +512,6 @@ class Scratch3TM2ScratchBlocks {
                 this.soundProbableLabels = result;
             }
         });
-
-        // // Initialize probabilities to reset whenReceived blocks.
-        // this.initSoundProbableLabels();
-        // if (!this.soundMetadata || !this.soundClassifier) {
-        //     this._isSoundClassifying = false;
-        //     return Promise.resolve([]);
-        // }
-        // this._isSoundClassifying = true;
-        // return this.soundClassifier.classify()
-        //     .then(result => {
-        //         // Yield some frames to evaluate whenReceive blocks.
-        //         setTimeout(() => {
-        //             this.soundProbableLabels = result;
-        //         }, 1);
-        //         return result;
-        //     })
-        //     .finally(() => {
-        //         setTimeout(() => {
-        //             this._isSoundClassifying = false;
-        //         }, this.interval);
-        //     });
     }
 
     /**
