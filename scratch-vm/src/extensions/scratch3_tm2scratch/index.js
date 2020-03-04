@@ -169,7 +169,7 @@ class Scratch3TM2ScratchBlocks {
                     arguments: {
                         URL: {
                             type: ArgumentType.STRING,
-                            defaultValue: 'https://teachablemachine.withgoogle.com/models/TuzkGLdX/'
+                            defaultValue: 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/'
                         }
                     }
                 },
