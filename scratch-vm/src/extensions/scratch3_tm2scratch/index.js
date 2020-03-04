@@ -131,6 +131,9 @@ class Scratch3TM2ScratchBlocks {
         this.runtime.ioDevices.video.enableVideo();
     }
 
+    /**
+     * Initialize the result of image classification.
+     */
     initImageProbableLabels () {
         this.imageProbableLabels = [];
     }
@@ -258,6 +261,12 @@ class Scratch3TM2ScratchBlocks {
         };
     }
 
+    /**
+     * Detect change of the selected image label is the most probable one or not.
+     * @param {object} args - The block's arguments.
+     * @property {string} LABEL - The label to detect.
+     * @return {boolean} - Whether the label is most probable or not.
+     */
     whenReceived (args) {
         const label = this.getImageLabel();
         if (args.LABEL === Message.any[this.locale]) {
@@ -340,6 +349,10 @@ class Scratch3TM2ScratchBlocks {
         });
     }
 
+    /**
+     * Return menu items to detect label in the image.
+     * @return {Array} - Menu items with 'any'.
+     */
     getLabelsMenu () {
         let items = [Message.any[this.locale]];
         if (!this.imageMetadata) return items;
@@ -347,6 +360,11 @@ class Scratch3TM2ScratchBlocks {
         return items;
     }
 
+
+    /**
+     * Return menu itmes to get properties of the image label.
+     * @return {Array} - Menu items with ''.
+     */
     getLabelsWithoutAnyMenu () {
         let items = [''];
         if (this.imageMetadata) {
@@ -423,15 +441,20 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-   * Get the most probable label in the image.
-   * Retrun the last classification result or '' when the first classification was not done.
-   * @return {string} label
-   */
+     * Get the most probable label in the image.
+     * Retrun the last classification result or '' when the first classification was not done.
+     * @return {string} label
+     */
     getImageLabel () {
         if (!this.imageProbableLabels || this.imageProbableLabels.length === 0) return '';
         return this.getMostProbableOne(this.imageProbableLabels).label;
     }
 
+    /**
+     * Set state of the continuous classification.
+     * @param {object} args - the block's arguments.
+     * @property {string} CLASSIFICATION_STATE - State to be ['on'|'off'].
+     */
     toggleClassification (args) {
         const state = args.CLASSIFICATION_STATE;
         if (this.timer) {
@@ -444,6 +467,11 @@ class Scratch3TM2ScratchBlocks {
         }
     }
 
+    /**
+     * Set interval time of the continuous classification.
+     * @param {object} args - the block's arguments.
+     * @property {number} CLASSIFICATION_INTERVAL - Interval time (seconds).
+     */
     setClassificationInterval (args) {
         if (this.timer) {
             clearTimeout(this.timer);
@@ -455,6 +483,11 @@ class Scratch3TM2ScratchBlocks {
         }, this.minInterval);
     }
 
+    /**
+     * Show video image on the stage or not.
+     * @param {object} args - the block's arguments.
+     * @property {string} VIDEO_STATE - Show or not ['on'|'off'].
+     */
     videoToggle (args) {
         const state = args.VIDEO_STATE;
         if (state === 'off') {
@@ -465,11 +498,20 @@ class Scratch3TM2ScratchBlocks {
         }
     }
 
+    /**
+     * Classify video image.
+     * @return {Promise} - A Promise that resolves the result of classification.
+     *  The result will be empty when another classification was under going.
+     */
     classifyVideoImage () {
         if (this._isImageClassifying) return Promise.resolve([]);
         return this.classifyImage(this.video);
     }
 
+    /**
+     * Return menu for video showing state.
+     * @return {Array} - Menu items.
+     */
     getVideoMenu () {
         return [
             {
@@ -487,6 +529,10 @@ class Scratch3TM2ScratchBlocks {
         ];
     }
 
+    /**
+     * Return menu for classification interval setting.
+     * @return {object} - Menu.
+     */
     getClassificationIntervalMenu () {
         return {
             acceptReporters: true,
@@ -511,6 +557,10 @@ class Scratch3TM2ScratchBlocks {
         };
     }
 
+    /**
+     * Return menu for continuous classification state.
+     * @return {Array} - Menu items.
+     */
     getClassificationMenu () {
         return [
             {
@@ -524,6 +574,10 @@ class Scratch3TM2ScratchBlocks {
         ];
     }
 
+    /**
+     * Get locale for message text.
+     * @return {string} - Locale of this editor.
+     */
     setLocale () {
         const locale = formatMessage.setup().locale;
         if (AvailableLocales.includes(locale)) {
