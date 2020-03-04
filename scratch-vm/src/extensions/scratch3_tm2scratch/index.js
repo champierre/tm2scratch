@@ -23,9 +23,9 @@ const Message = {
         'en': 'image label'
     },
     when_received_block: {
-        'ja': 'ラベル[LABEL]を受け取ったとき',
-        'ja-Hira': 'ラベル[LABEL]をうけとったとき',
-        'en': 'when received label:[LABEL]',
+        'ja': '画像ラベル[LABEL]を受け取ったとき',
+        'ja-Hira': 'がぞうラベル[LABEL]をうけとったとき',
+        'en': 'when received image label:[LABEL]',
         'zh-cn': '接收到类别[LABEL]时'
     },
     is_image_label_detected: {
