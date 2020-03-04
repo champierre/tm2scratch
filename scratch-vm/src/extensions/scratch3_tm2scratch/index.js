@@ -33,6 +33,11 @@ const Message = {
         'ja-Hira': '[LABEL]のがぞうがみつかった',
         'en': 'image [LABEL] detected'
     },
+    image_label_confidence: {
+        'ja': '画像ラベル[LABEL]の確度',
+        'ja-Hira': 'がぞうラベル[LABEL]のかくど',
+        'en': 'confidence of image [LABEL]'
+    },
     label_block: {
         'ja': 'ラベル',
         'ja-Hira': 'ラベル',
@@ -163,6 +168,19 @@ class Scratch3TM2ScratchBlocks {
                     }
                 },
                 {
+                    opcode: 'imageLabelConfidence',
+                    text: Message.image_label_confidence[this.locale],
+                    blockType: BlockType.REPORTER,
+                    disableMonitor: true,
+                    arguments: {
+                        LABEL: {
+                            type: ArgumentType.STRING,
+                            menu: 'image_labels_without_any_menu',
+                            defaultValue: ''
+                        }
+                    }
+                },
+                {
                     opcode: 'setImageClassificationModelURL',
                     text: Message.image_classification_model_url[this.locale],
                     blockType: BlockType.COMMAND,
@@ -223,6 +241,10 @@ class Scratch3TM2ScratchBlocks {
             menus: {
                 received_menu: 'getLabelsMenu',
                 image_labels_menu: 'getLabelsMenu',
+                image_labels_without_any_menu: {
+                    acceptReporters: true,
+                    items: 'getLabelsWithoutAnyMenu'
+                },
                 video_menu: this.getVideoMenu(),
                 classification_interval_menu: this.getClassificationIntervalMenu(),
                 classification_menu: this.getClassificationMenu()
@@ -250,6 +272,20 @@ class Scratch3TM2ScratchBlocks {
             return label !== '';
         }
         return label === args.LABEL;
+    }
+
+    /**
+     * Return confidence of the label.
+     * @param {object} args - The block's arguments.
+     * @property {string} LABEL - Selected label.
+     * @return {number} - Confidence of the label.
+     */
+    imageLabelConfidence (args) {
+        if (args.LABEL === '') {
+            return 0;
+        }
+        const entry = this.imageProbableLabels.find(element => element.label === args.LABEL);
+        return (entry ? entry.confidence : 0);
     }
 
     /**
@@ -303,6 +339,14 @@ class Scratch3TM2ScratchBlocks {
         if (!this.imageMetadata) return menu;
         menu = menu.concat(this.imageMetadata.labels);
         return menu;
+    }
+
+    getLabelsWithoutAnyMenu () {
+        let items = [''];
+        if (this.imageMetadata) {
+            items = items.concat(this.imageMetadata.labels);
+        }
+        return items;
     }
 
     /**
