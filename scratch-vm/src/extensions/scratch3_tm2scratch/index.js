@@ -33,15 +33,20 @@ const Message = {
         'en': 'sound label'
     },
     when_received_block: {
-        'ja': 'ラベル[LABEL]を受け取ったとき',
-        'ja-Hira': 'ラベル[LABEL]をうけとったとき',
-        'en': 'when received label:[LABEL]',
+        'ja': '画像ラベル[LABEL]を受け取ったとき',
+        'ja-Hira': 'がぞうラベル[LABEL]をうけとったとき',
+        'en': 'when received image label:[LABEL]',
         'zh-cn': '接收到类别[LABEL]时'
     },
     is_image_label_detected: {
         'ja': '[LABEL]の画像が見つかった',
         'ja-Hira': '[LABEL]のがぞうがみつかった',
         'en': 'image [LABEL] detected'
+    },
+    image_label_confidence: {
+        'ja': '画像ラベル[LABEL]の確度',
+        'ja-Hira': 'がぞうラベル[LABEL]のかくど',
+        'en': 'confidence of image [LABEL]'
     },
     when_received_sound_label_block: {
         'ja': '音声ラベル[LABEL]を受け取ったとき',
@@ -152,6 +157,9 @@ class Scratch3TM2ScratchBlocks {
         this.runtime.ioDevices.video.enableVideo();
     }
 
+    /**
+     * Initialize the result of image classification.
+     */
     initImageProbableLabels () {
         this.imageProbableLabels = [];
     }
@@ -193,13 +201,26 @@ class Scratch3TM2ScratchBlocks {
                     }
                 },
                 {
+                    opcode: 'imageLabelConfidence',
+                    text: Message.image_label_confidence[this.locale],
+                    blockType: BlockType.REPORTER,
+                    disableMonitor: true,
+                    arguments: {
+                        LABEL: {
+                            type: ArgumentType.STRING,
+                            menu: 'image_labels_without_any_menu',
+                            defaultValue: ''
+                        }
+                    }
+                },
+                {
                     opcode: 'setImageClassificationModelURL',
                     text: Message.image_classification_model_url[this.locale],
                     blockType: BlockType.COMMAND,
                     arguments: {
                         URL: {
                             type: ArgumentType.STRING,
-                            defaultValue: 'https://teachablemachine.withgoogle.com/models/TuzkGLdX/'
+                            defaultValue: 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/'
                         }
                     }
                 },
@@ -281,8 +302,18 @@ class Scratch3TM2ScratchBlocks {
                 }
             ],
             menus: {
-                received_menu: 'getLabelsMenu',
-                image_labels_menu: 'getLabelsMenu',
+                received_menu: {
+                    acceptReporters: true,
+                    items: 'getLabelsMenu'
+                },
+                image_labels_menu: {
+                    acceptReporters: true,
+                    items: 'getLabelsMenu'
+                },
+                image_labels_without_any_menu: {
+                    acceptReporters: true,
+                    items: 'getLabelsWithoutAnyMenu'
+                },
                 received_sound_label_menu: 'getSoundLabelsMenu',
                 video_menu: this.getVideoMenu(),
                 classification_interval_menu: this.getClassificationIntervalMenu(),
@@ -291,6 +322,12 @@ class Scratch3TM2ScratchBlocks {
         };
     }
 
+    /**
+     * Detect change of the selected image label is the most probable one or not.
+     * @param {object} args - The block's arguments.
+     * @property {string} LABEL - The label to detect.
+     * @return {boolean} - Whether the label is most probable or not.
+     */
     whenReceived (args) {
         const label = this.getImageLabel();
         if (args.LABEL === Message.any[this.locale]) {
@@ -319,6 +356,20 @@ class Scratch3TM2ScratchBlocks {
             return label !== '';
         }
         return label === args.LABEL;
+    }
+
+    /**
+     * Return confidence of the label.
+     * @param {object} args - The block's arguments.
+     * @property {string} LABEL - Selected label.
+     * @return {number} - Confidence of the label.
+     */
+    imageLabelConfidence (args) {
+        if (args.LABEL === '') {
+            return 0;
+        }
+        const entry = this.imageProbableLabels.find(element => element.label === args.LABEL);
+        return (entry ? entry.confidence : 0);
     }
 
     /**
@@ -413,11 +464,28 @@ class Scratch3TM2ScratchBlocks {
         });
     }
 
+    /**
+     * Return menu items to detect label in the image.
+     * @return {Array} - Menu items with 'any'.
+     */
     getLabelsMenu () {
-        let menu = [Message.any[this.locale]];
-        if (!this.imageMetadata) return menu;
-        menu = menu.concat(this.imageMetadata.labels);
-        return menu;
+        let items = [Message.any[this.locale]];
+        if (!this.imageMetadata) return items;
+        items = items.concat(this.imageMetadata.labels);
+        return items;
+    }
+
+
+    /**
+     * Return menu itmes to get properties of the image label.
+     * @return {Array} - Menu items with ''.
+     */
+    getLabelsWithoutAnyMenu () {
+        let items = [''];
+        if (this.imageMetadata) {
+            items = items.concat(this.imageMetadata.labels);
+        }
+        return items;
     }
 
     getSoundLabelsMenu () {
@@ -474,8 +542,6 @@ class Scratch3TM2ScratchBlocks {
      *  The result will be empty when the imageClassifier was not set.
      */
     classifyImage (input) {
-        // Initialize probabilities to reset whenReceived blocks.
-        this.initImageProbableLabels();
         if (!this.imageMetadata || !this.imageClassifier) {
             this._isImageClassifying = false;
             return Promise.resolve([]);
@@ -483,14 +549,14 @@ class Scratch3TM2ScratchBlocks {
         this._isImageClassifying = true;
         return this.imageClassifier.classify(input)
             .then(result => {
-                // Yield some frames to evaluate whenReceive blocks.
-                setTimeout(() => {
-                    this.imageProbableLabels = result.slice();
-                }, 1);
+                this.imageProbableLabels = result.slice();
+                this.imageProbableLabelsUpdated = true;
                 return result;
             })
             .finally(() => {
                 setTimeout(() => {
+                    // Initialize probabilities to reset whenReceived blocks.
+                    this.initImageProbableLabels();
                     this._isImageClassifying = false;
                 }, this.interval);
             });
@@ -538,6 +604,11 @@ class Scratch3TM2ScratchBlocks {
         return this.getMostProbableOne(this.soundProbableLabels).label;
     }
 
+    /**
+     * Set state of the continuous classification.
+     * @param {object} args - the block's arguments.
+     * @property {string} CLASSIFICATION_STATE - State to be ['on'|'off'].
+     */
     toggleClassification (args) {
         const state = args.CLASSIFICATION_STATE;
         if (this.timer) {
@@ -558,6 +629,11 @@ class Scratch3TM2ScratchBlocks {
         }
     }
 
+    /**
+     * Set interval time of the continuous classification.
+     * @param {object} args - the block's arguments.
+     * @property {number} CLASSIFICATION_INTERVAL - Interval time (seconds).
+     */
     setClassificationInterval (args) {
         if (this.timer) {
             clearTimeout(this.timer);
@@ -574,6 +650,11 @@ class Scratch3TM2ScratchBlocks {
         }, this.interval);
     }
 
+    /**
+     * Show video image on the stage or not.
+     * @param {object} args - the block's arguments.
+     * @property {string} VIDEO_STATE - Show or not ['on'|'off'].
+     */
     videoToggle (args) {
         const state = args.VIDEO_STATE;
         if (state === 'off') {
@@ -584,11 +665,20 @@ class Scratch3TM2ScratchBlocks {
         }
     }
 
+    /**
+     * Classify video image.
+     * @return {Promise} - A Promise that resolves the result of classification.
+     *  The result will be empty when another classification was under going.
+     */
     classifyVideoImage () {
         if (this._isImageClassifying) return Promise.resolve([]);
         return this.classifyImage(this.video);
     }
 
+    /**
+     * Return menu for video showing state.
+     * @return {Array} - Menu items.
+     */
     getVideoMenu () {
         return [
             {
@@ -606,27 +696,38 @@ class Scratch3TM2ScratchBlocks {
         ];
     }
 
+    /**
+     * Return menu for classification interval setting.
+     * @return {object} - Menu.
+     */
     getClassificationIntervalMenu () {
-        return [
-            {
-                text: '1',
-                value: '1'
-            },
-            {
-                text: '0.5',
-                value: '0.5'
-            },
-            {
-                text: '0.2',
-                value: '0.2'
-            },
-            {
-                text: '0.1',
-                value: '0.1'
-            }
-        ];
+        return {
+            acceptReporters: true,
+            items: [
+                {
+                    text: '1',
+                    value: '1'
+                },
+                {
+                    text: '0.5',
+                    value: '0.5'
+                },
+                {
+                    text: '0.2',
+                    value: '0.2'
+                },
+                {
+                    text: '0.1',
+                    value: '0.1'
+                }
+            ]
+        };
     }
 
+    /**
+     * Return menu for continuous classification state.
+     * @return {Array} - Menu items.
+     */
     getClassificationMenu () {
         return [
             {
@@ -640,6 +741,10 @@ class Scratch3TM2ScratchBlocks {
         ];
     }
 
+    /**
+     * Get locale for message text.
+     * @return {string} - Locale of this editor.
+     */
     setLocale () {
         const locale = formatMessage.setup().locale;
         if (AvailableLocales.includes(locale)) {
