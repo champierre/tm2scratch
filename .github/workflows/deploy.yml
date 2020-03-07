@@ -20,8 +20,6 @@ jobs:
           path: ./tm2scratch
       - run: sh ./tm2scratch/install_for_github_actions.sh
       - run: npm run build
-      - run: mv ./build/index.html ./build/${{ secrets.GATE_PASSWORD }}.html
-      - run: cp ./tm2scratch/index.html ./build/index.html
       - run: cp ./tm2scratch/favicon.ico ./build/static/favicon.ico
       - uses: peaceiris/actions-gh-pages@v3
         with:
