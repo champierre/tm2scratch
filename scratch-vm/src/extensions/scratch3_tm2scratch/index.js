@@ -43,10 +43,20 @@ const Message = {
         'ja-Hira': '[LABEL]のがぞうがみつかった',
         'en': 'image [LABEL] detected'
     },
+    is_sound_label_detected: {
+        'ja': '[LABEL]の音声が聞こえた',
+        'ja-Hira': '[LABEL]のおんせいがきこえた',
+        'en': 'sound [LABEL] detected'
+    },
     image_label_confidence: {
         'ja': '画像ラベル[LABEL]の確度',
         'ja-Hira': 'がぞうラベル[LABEL]のかくど',
         'en': 'confidence of image [LABEL]'
+    },
+    sound_label_confidence: {
+        'ja': '音声ラベル[LABEL]の確度',
+        'ja-Hira': 'おんせいラベル[LABEL]のかくど',
+        'en': 'confidence of sound [LABEL]'
     },
     when_received_sound_label_block: {
         'ja': '音声ラベル[LABEL]を受け取ったとき',
@@ -248,6 +258,31 @@ class Scratch3TM2ScratchBlocks {
                     }
                 },
                 {
+                    opcode: 'isSoundLabelDetected',
+                    text: Message.is_sound_label_detected[this.locale],
+                    blockType: BlockType.BOOLEAN,
+                    arguments: {
+                        LABEL: {
+                            type: ArgumentType.STRING,
+                            menu: 'sound_labels_menu',
+                            defaultValue: Message.any[this.locale]
+                        }
+                    }
+                },
+                {
+                    opcode: 'soundLabelConfidence',
+                    text: Message.sound_label_confidence[this.locale],
+                    blockType: BlockType.REPORTER,
+                    disableMonitor: true,
+                    arguments: {
+                        LABEL: {
+                            type: ArgumentType.STRING,
+                            menu: 'sound_labels_without_any_menu',
+                            defaultValue: ''
+                        }
+                    }
+                },
+                {
                     opcode: 'setSoundClassificationModelURL',
                     text: Message.sound_classification_model_url[this.locale],
                     blockType: BlockType.COMMAND,
@@ -314,7 +349,18 @@ class Scratch3TM2ScratchBlocks {
                     acceptReporters: true,
                     items: 'getLabelsWithoutAnyMenu'
                 },
-                received_sound_label_menu: 'getSoundLabelsMenu',
+                received_sound_label_menu: {
+                    acceptReporters: true,
+                    items: 'getSoundLabelsMenu'
+                },
+                sound_labels_menu: {
+                    acceptReporters: true,
+                    items: 'getSoundLabelsMenu'
+                },
+                sound_labels_without_any_menu: {
+                    acceptReporters: true,
+                    items: 'getSoundLabelsWithoutAnyMenu'
+                },
                 video_menu: this.getVideoMenu(),
                 classification_interval_menu: this.getClassificationIntervalMenu(),
                 classification_menu: this.getClassificationMenu()
@@ -336,6 +382,12 @@ class Scratch3TM2ScratchBlocks {
         return label === args.LABEL;
     }
 
+    /**
+     * Detect change of the selected sound label is the most probable one or not.
+     * @param {object} args - The block's arguments.
+     * @property {string} LABEL - The label to detect.
+     * @return {boolean} - Whether the label is most probable or not.
+     */
     whenReceivedSoundLabel (args) {
         const label = this.getSoundLabel();
         if (args.LABEL === Message.any[this.locale]) {
@@ -359,7 +411,21 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-     * Return confidence of the label.
+     * Return whether the most probable sound label is the selected one or not.
+     * @param {object} args - The block's arguments.
+     * @property {string} LABEL - The label to detect.
+     * @return {boolean} - Whether the label is most probable or not.
+     */
+    isSoundLabelDetected (args) {
+        const label = this.getSoundLabel();
+        if (args.LABEL === Message.any[this.locale]) {
+            return label !== '';
+        }
+        return label === args.LABEL;
+    }
+
+    /**
+     * Return confidence of the image label.
      * @param {object} args - The block's arguments.
      * @property {string} LABEL - Selected label.
      * @return {number} - Confidence of the label.
@@ -369,6 +435,22 @@ class Scratch3TM2ScratchBlocks {
             return 0;
         }
         const entry = this.imageProbableLabels.find(element => element.label === args.LABEL);
+        return (entry ? entry.confidence : 0);
+    }
+
+    /**
+     * Return confidence of the sound label.
+     * @param {object} args - The block's arguments.
+     * @property {string} LABEL - Selected label.
+     * @return {number} - Confidence of the label.
+     */
+    soundLabelConfidence (args) {
+        if (!this.soundProbableLabels || this.soundProbableLabels.length === 0) return 0;
+
+        if (args.LABEL === '') {
+            return 0;
+        }
+        const entry = this.soundProbableLabels.find(element => element.label === args.LABEL);
         return (entry ? entry.confidence : 0);
     }
 
@@ -475,6 +557,16 @@ class Scratch3TM2ScratchBlocks {
         return items;
     }
 
+    /**
+     * Return menu items to detect label in the image.
+     * @return {Array} - Menu items with 'any'.
+     */
+    getSoundLabelsMenu () {
+        let menu = [Message.any[this.locale]];
+        if (!this.soundMetadata) return menu;
+        menu = menu.concat(this.soundMetadata.wordLabels);
+        return menu;
+    }
 
     /**
      * Return menu itmes to get properties of the image label.
@@ -488,11 +580,16 @@ class Scratch3TM2ScratchBlocks {
         return items;
     }
 
-    getSoundLabelsMenu () {
-        let menu = [Message.any[this.locale]];
-        if (!this.soundMetadata) return menu;
-        menu = menu.concat(this.soundMetadata.wordLabels);
-        return menu;
+    /**
+     * Return menu itmes to get properties of the sound label.
+     * @return {Array} - Menu items with ''.
+     */
+    getSoundLabelsWithoutAnyMenu () {
+        let items = [''];
+        if (this.soundMetadata) {
+            items = items.concat(this.soundMetadata.wordLabels);
+        }
+        return items;
     }
 
     /**
