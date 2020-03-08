@@ -7,7 +7,7 @@ mkdir -p node_modules/scratch-vm/src/extensions/scratch3_tm2scratch
 cp tm2scratch/scratch-vm/src/extensions/scratch3_tm2scratch/index.js node_modules/scratch-vm/src/extensions/scratch3_tm2scratch/
 wget -P node_modules/scratch-vm/src/extensions https://unpkg.com/ml5@0.4.3/dist/ml5.min.js
 mv node_modules/scratch-vm/src/extension-support/extension-manager.js node_modules/scratch-vm/src/extension-support/extension-manager.js_orig
-sed -e "s|scratch3_gdx_for')$|scratch3_gdx_for'),${LF}    tm2scratch: () => require('../extensions/scratch3_tm2scratch')|g" node_modules/scratch-vm/src/extension-support/extension-manager.js_orig > node_modules/scratch-vm/src/extension-support/extension-manager.js
+sed -e "s|scratch3_gdx_for'),$|scratch3_gdx_for'),${LF}    tm2scratch: () => require('../extensions/scratch3_tm2scratch'),|g" node_modules/scratch-vm/src/extension-support/extension-manager.js_orig > node_modules/scratch-vm/src/extension-support/extension-manager.js
 
 mkdir -p src/lib/libraries/extensions/tm2scratch
 cp tm2scratch/scratch-gui/src/lib/libraries/extensions/tm2scratch/tm2scratch.png src/lib/libraries/extensions/tm2scratch/

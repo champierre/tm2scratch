@@ -18,6 +18,17 @@ jobs:
       - uses: actions/checkout@v2
         with:
           path: ./tm2scratch
+      - uses: actions/checkout@v2
+        with:
+          repository: yokobond/scratch-vm
+          ref: extension/microbit-more
+          path: ./microbit-more-scratch-vm
+      - uses: actions/checkout@v2
+        with:
+          repository: yokobond/scratch-ext
+          ref: microbit-more
+          path: ./microbit-more-scratch-ext
+      - run: sh ./tm2scratch/install_microbit_more_for_github_actions.sh
       - run: sh ./tm2scratch/install_for_github_actions.sh
       - run: npm run build
       - run: cp ./tm2scratch/index.html ./build/index.html

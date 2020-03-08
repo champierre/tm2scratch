@@ -1,12 +1,12 @@
 # TM2Scratch
 
-TM2Scratch connects Google Teachable Machine with Scratch 3. You can use image, audio recognition on Scratch project (pose recognition to be released in near future).
+TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image, audio recognition on Scratch project (pose recognition to be released in near future).
 
 ## How to use
 
 ### Image recognition
 
-1. On [Google Teachable Machine](https://teachablemachine.withgoogle.com/) website, create an image classification model and upload it.
+1. On [Google Teachable Machine 2](https://teachablemachine.withgoogle.com/) website, create an image classification model and upload it.
 
 2. Copy the sharable link.
 
