@@ -149,10 +149,6 @@ class Scratch3TM2ScratchBlocks {
             this.classifyVideoImage();
         }, this.minInterval);
 
-        this.soundTimer = setInterval(() => {
-            this.classifySound();
-        }, this.interval);
-
         this.imageModelUrl = null;
         this.imageMetadata = null;
         this.imageClassifier = null;
@@ -161,7 +157,7 @@ class Scratch3TM2ScratchBlocks {
         this.soundModelUrl = null;
         this.soundMetadata = null;
         this.soundClassifier = null;
-        this.soundClassifierEnabled = true;
+        this.soundClassifierEnabled = false;
         this.initSoundProbableLabels();
 
         this.runtime.ioDevices.video.enableVideo();
@@ -351,11 +347,11 @@ class Scratch3TM2ScratchBlocks {
                 },
                 received_sound_label_menu: {
                     acceptReporters: true,
-                    items: 'getSoundLabelsMenu'
+                    items: 'getSoundLabelsWithoutBackgroundMenu'
                 },
                 sound_labels_menu: {
                     acceptReporters: true,
-                    items: 'getSoundLabelsMenu'
+                    items: 'getSoundLabelsWithoutBackgroundMenu'
                 },
                 sound_labels_without_any_menu: {
                     acceptReporters: true,
@@ -389,6 +385,10 @@ class Scratch3TM2ScratchBlocks {
      * @return {boolean} - Whether the label is most probable or not.
      */
     whenReceivedSoundLabel (args) {
+        if (!this.soundClassifierEnabled) {
+            return;
+        }
+
         const label = this.getSoundLabel();
         if (args.LABEL === Message.any[this.locale]) {
             return label !== '';
@@ -531,6 +531,8 @@ class Scratch3TM2ScratchBlocks {
                                 this.soundMetadata = metadata;
                                 this.soundClassifier = classifier;
                                 this.initSoundProbableLabels();
+                                this.soundClassifierEnabled = true;
+                                this.classifySound();
                                 log.info(`sound model loaded from: ${url}`);
                             })
                             .catch(error => {
@@ -562,10 +564,10 @@ class Scratch3TM2ScratchBlocks {
      * @return {Array} - Menu items with 'any'.
      */
     getSoundLabelsMenu () {
-        let menu = [Message.any[this.locale]];
-        if (!this.soundMetadata) return menu;
-        menu = menu.concat(this.soundMetadata.wordLabels);
-        return menu;
+        let items = [Message.any[this.locale]];
+        if (!this.soundMetadata) return items;
+        items = items.concat(this.soundMetadata.wordLabels);
+        return items;
     }
 
     /**
@@ -589,6 +591,17 @@ class Scratch3TM2ScratchBlocks {
         if (this.soundMetadata) {
             items = items.concat(this.soundMetadata.wordLabels);
         }
+        return items;
+    }
+
+    /**
+     * Return menu itmes to get properties of the sound label.
+     * @return {Array} - Menu items without '_background_noise_'.
+     */
+    getSoundLabelsWithoutBackgroundMenu () {
+        let items = [Message.any[this.locale]];
+        if (!this.soundMetadata) return items;
+        items = items.concat(this.soundMetadata.wordLabels.slice(1));
         return items;
     }
 
@@ -660,23 +673,19 @@ class Scratch3TM2ScratchBlocks {
     }
 
     /**
-     * Classyfy sound.
-     *
-     * @return {Promise} - A Promise that resolves the result of classification.
-     *  The result will be empty when the soundClassifier was not set.
+     * Classify sound.
      */
     classifySound () {
-        if (!this.soundMetadata || !this.soundClassifier) {
-            return;
-        }
         this.soundClassifier.classify((err, result) => {
-            if (!this.soundClassifierEnabled) {
-                return;
+            if (this.soundClassifierEnabled && result) {
+                this.soundProbableLabels = result.slice();
+                setTimeout(() => {
+                    // Initialize probabilities to reset whenReceivedSoundLabel blocks.
+                    this.initSoundProbableLabels();
+                }, this.interval);
             }
-            if (err && err != 'ERROR: Cannot start streaming again when streaming is ongoing.') {
+            if (err) {
                 console.error(err);
-            } else {
-                this.soundProbableLabels = result;
             }
         });
     }
@@ -711,18 +720,12 @@ class Scratch3TM2ScratchBlocks {
         if (this.timer) {
             clearTimeout(this.timer);
         }
-        if (this.soundTimer) {
-            clearTimeout(this.soundTimer);
-            this.soundClassifierEnabled = false;
-        }
+        this.soundClassifierEnabled = false;
         if (state === 'on') {
             this.timer = setInterval(() => {
                 this.classifyVideoImage();
             }, this.minInterval);
             this.soundClassifierEnabled = true;
-            this.soundTimer = setInterval(() => {
-                this.classifySound();
-            }, this.interval);
         }
     }
 
@@ -735,16 +738,10 @@ class Scratch3TM2ScratchBlocks {
         if (this.timer) {
             clearTimeout(this.timer);
         }
-        if (this.soundTimer) {
-            clearTimeout(this.soundTimer);
-        }
         this.interval = args.CLASSIFICATION_INTERVAL * 1000;
         this.timer = setInterval(() => {
             this.classifyVideoImage();
         }, this.minInterval);
-        this.soundTimer = setInterval(() => {
-            this.classifySound();
-        }, this.interval);
     }
 
     /**
