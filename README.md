@@ -42,9 +42,9 @@ TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image
 
   <img src="images/en/when_received_sound_label.png" />
 
-## For Developers - How to add TM2Scratch extension to your (customized) Scratch
+## For Developers - How to run TM2Scratch extension on your computer
 
-1. Prepare LLK/scratch-gui on your local machine.
+1. Setup LLK/scratch-gui on your computer.
 
     ```
     % git clone git@github.com:LLK/scratch-gui.git
@@ -52,13 +52,19 @@ TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image
     % npm install
     ```
 
-2. Run the install script.
+2. In scratch-gui folder, clone TM2Scratch. You will have tm2scratch folder under scratch-gui.
 
     ```
-    % curl https://raw.githubusercontent.com/champierre/tm2scratch/master/install.sh | sh
+    % git clone git@github.com:champierre/tm2scratch.git
     ```
 
-3. Run Scratch, then go to http://localhost:8601/.
+3. Run the install script.
+
+    ```
+    % sh tm2scratch/install.sh
+    ```
+
+4. Run Scratch, then go to http://localhost:8601/.
 
     ```
     % npm start
