@@ -6,7 +6,7 @@ LF=${LF%_}
 mkdir -p node_modules/scratch-vm/src/extensions/scratch3_microbit_more
 cp microbit-more-scratch-vm/src/extensions/scratch3_microbit_more/index.js node_modules/scratch-vm/src/extensions/scratch3_microbit_more/
 mv node_modules/scratch-vm/src/extension-support/extension-manager.js node_modules/scratch-vm/src/extension-support/extension-manager.js_orig
-sed -e "s|scratch3_gdx_for')$|scratch3_gdx_for'),${LF}    microbitMore: () => require('../extensions/scratch3_microbit_more')|g" node_modules/scratch-vm/src/extension-support/extension-manager.js_orig > node_modules/scratch-vm/src/extension-support/extension-manager.js
+sed -e "s|class ExtensionManager {$|builtinExtensions['microbitMore'] = () => require('../extensions/scratch3_microbit_more');${LF}${LF}class ExtensionManager {|g" node_modules/scratch-vm/src/extension-support/extension-manager.js_orig > node_modules/scratch-vm/src/extension-support/extension-manager.js
 
 mkdir -p src/lib/libraries/extensions/microbitMore
 cp microbit-more-scratch-ext/src/lib/libraries/extensions/microbitMore/microbitMore.png src/lib/libraries/extensions/microbitMore/
