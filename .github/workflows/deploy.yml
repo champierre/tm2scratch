@@ -28,7 +28,7 @@ jobs:
           repository: yokobond/scratch-ext
           ref: microbit-more
           path: ./microbit-more-scratch-ext
-      - run: sh ./tm2scratch/install_microbit_more.sh
+      - run: sh ./microbit-more-scratch-vm/install.sh
       - run: sh ./tm2scratch/install.sh
       - run: sh ./tm2scratch/add_ga_tracking_code.sh
       - run: npm run build
