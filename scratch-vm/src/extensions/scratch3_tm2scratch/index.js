@@ -1,6 +1,7 @@
 const ArgumentType = require('../../extension-support/argument-type');
 const BlockType = require('../../extension-support/block-type');
 const Cast = require('../../util/cast');
+const MathUtil = require('../../util/math-util');
 const log = require('../../util/log');
 const ml5 = require('ml5');
 const formatMessage = require('format-message');
@@ -88,6 +89,16 @@ const Message = {
         'en': 'turn classification [CLASSIFICATION_STATE]',
         'zh-cn': '[CLASSIFICATION_STATE]分类'
     },
+    set_confidence_threshold: {
+        'ja': '確度の閾値を[CONFIDENCE_THRESHOLD]にする',
+        'ja-Hira': 'かくどのしきいちを[CONFIDENCE_THRESHOLD]にする',
+        'en': 'set confidence threshold [CONFIDENCE_THRESHOLD]'
+    },
+    get_confidence_threshold: {
+        'ja': '確度の閾値',
+        'ja-Hira': 'かくどのしきいち',
+        'en': 'confidence threshold'
+    },
     set_classification_interval: {
         'ja': 'ラベル付けを[CLASSIFICATION_INTERVAL]秒間に1回行う',
         'ja-Hira': 'ラベルづけを[CLASSIFICATION_INTERVAL]びょうかんに1かいおこなう',
@@ -153,6 +164,7 @@ class Scratch3TM2ScratchBlocks {
         this.imageMetadata = null;
         this.imageClassifier = null;
         this.initImageProbableLabels();
+        this.confidenceThreshold = 0.5;
 
         this.soundModelUrl = null;
         this.soundMetadata = null;
@@ -318,6 +330,23 @@ class Scratch3TM2ScratchBlocks {
                             defaultValue: '1'
                         }
                     }
+                },
+                {
+                    opcode: 'setConfidenceThreshold',
+                    text: Message.set_confidence_threshold[this.locale],
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        CONFIDENCE_THRESHOLD: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 0.5
+                        }
+                    }
+                },
+                {
+                    opcode: 'getConfidenceThreshold',
+                    text: Message.get_confidence_threshold[this.locale],
+                    blockType: BlockType.REPORTER,
+                    disableMonitor: true
                 },
                 {
                     opcode: 'videoToggle',
@@ -697,7 +726,8 @@ class Scratch3TM2ScratchBlocks {
     */
     getImageLabel () {
         if (!this.imageProbableLabels || this.imageProbableLabels.length === 0) return '';
-        return this.getMostProbableOne(this.imageProbableLabels).label;
+        const mostOne = this.getMostProbableOne(this.imageProbableLabels);
+        return (mostOne.confidence >= this.confidenceThreshold) ? mostOne.label : '';
     }
 
     /**
@@ -707,7 +737,28 @@ class Scratch3TM2ScratchBlocks {
     */
     getSoundLabel () {
         if (!this.soundProbableLabels || this.soundProbableLabels.length === 0) return '';
-        return this.getMostProbableOne(this.soundProbableLabels).label;
+        const mostOne = this.getMostProbableOne(this.soundProbableLabels);
+        return (mostOne.confidence >= this.confidenceThreshold) ? mostOne.label : '';
+    }
+
+    /**
+     * Set confidence threshold which should be over for detected label.
+     * @param {object} args - the block's arguments.
+     * @property {number} CONFIDENCE_THRESHOLD - Value of confidence threshold.
+     */
+    setConfidenceThreshold (args) {
+        let threshold = Cast.toNumber(args.CONFIDENCE_THRESHOLD);
+        threshold = MathUtil.clamp(threshold, 0, 1);
+        this.confidenceThreshold = threshold;
+    }
+
+    /**
+     * Get confidence threshold which should be over for detected label.
+     * @param {object} args - the block's arguments.
+     * @return {number} - Value of confidence threshold.
+     */
+    getConfidenceThreshold () {
+        return this.confidenceThreshold;
     }
 
     /**
