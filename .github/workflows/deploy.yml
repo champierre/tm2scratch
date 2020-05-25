@@ -20,15 +20,10 @@ jobs:
           path: ./tm2scratch
       - uses: actions/checkout@v2
         with:
-          repository: yokobond/scratch-vm
-          ref: extension/microbit-more
-          path: ./microbit-more-scratch-vm
-      - uses: actions/checkout@v2
-        with:
-          repository: yokobond/scratch-ext
-          ref: microbit-more
-          path: ./microbit-more-scratch-ext
-      - run: sh ./microbit-more-scratch-vm/install.sh
+          repository: yokobond/scratch-microbit-more
+          path: ./scratch-microbit-more
+      - run: node ./install.js --gui=..
+        working-directory: ./scratch-microbit-more
       - run: sh ./tm2scratch/install.sh
       - run: sh ./tm2scratch/add_ga_tracking_code.sh
       - run: npm run build
