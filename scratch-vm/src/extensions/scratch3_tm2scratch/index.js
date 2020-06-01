@@ -77,6 +77,12 @@ const Message = {
         'en': 'any',
         'zh-cn': '任何'
     },
+    any_without_of: {
+      'ja': 'どれか',
+      'ja-Hira': 'どれか',
+      'en': 'any',
+      'zh-cn': '任何'
+    },
     all: {
         'ja': 'の全て',
         'ja-Hira': 'のすべて',
@@ -214,7 +220,7 @@ class Scratch3TM2ScratchBlocks {
                         LABEL: {
                             type: ArgumentType.STRING,
                             menu: 'image_labels_menu',
-                            defaultValue: Message.any[this.locale]
+                            defaultValue: Message.any_without_of[this.locale]
                         }
                     }
                 },
@@ -273,7 +279,7 @@ class Scratch3TM2ScratchBlocks {
                         LABEL: {
                             type: ArgumentType.STRING,
                             menu: 'sound_labels_menu',
-                            defaultValue: Message.any[this.locale]
+                            defaultValue: Message.any_without_of[this.locale]
                         }
                     }
                 },
@@ -368,7 +374,7 @@ class Scratch3TM2ScratchBlocks {
                 },
                 image_labels_menu: {
                     acceptReporters: true,
-                    items: 'getLabelsMenu'
+                    items: 'getLabelsWithAnyWithoutOfMenu'
                 },
                 image_labels_without_any_menu: {
                     acceptReporters: true,
@@ -380,7 +386,7 @@ class Scratch3TM2ScratchBlocks {
                 },
                 sound_labels_menu: {
                     acceptReporters: true,
-                    items: 'getSoundLabelsWithoutBackgroundMenu'
+                    items: 'getSoundLabelsWithoutBackgroundWithAnyWithoutOfMenu'
                 },
                 sound_labels_without_any_menu: {
                     acceptReporters: true,
@@ -590,6 +596,17 @@ class Scratch3TM2ScratchBlocks {
 
     /**
      * Return menu items to detect label in the image.
+     * @return {Array} - Menu items with 'any without of'.
+     */
+    getLabelsWithAnyWithoutOfMenu () {
+        let items = [Message.any_without_of[this.locale]];
+        if (!this.imageMetadata) return items;
+        items = items.concat(this.imageMetadata.labels);
+        return items;
+    }
+
+    /**
+     * Return menu items to detect label in the image.
      * @return {Array} - Menu items with 'any'.
      */
     getSoundLabelsMenu () {
@@ -632,6 +649,17 @@ class Scratch3TM2ScratchBlocks {
         if (!this.soundMetadata) return items;
         items = items.concat(this.soundMetadata.wordLabels.slice(1));
         return items;
+    }
+
+    /**
+     * Return menu itmes to get properties of the sound label.
+     * @return {Array} - Menu items without '_background_noise_' and with 'any without of'.
+     */
+    getSoundLabelsWithoutBackgroundWithAnyWithoutOfMenu () {
+      let items = [Message.any_without_of[this.locale]];
+      if (!this.soundMetadata) return items;
+      items = items.concat(this.soundMetadata.wordLabels.slice(1));
+      return items;
     }
 
     /**
