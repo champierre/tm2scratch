@@ -90,12 +90,12 @@ const Message = {
         'zh-cn': '[CLASSIFICATION_STATE]分类'
     },
     set_confidence_threshold: {
-        'ja': '確度の閾値を[CONFIDENCE_THRESHOLD]にする',
+        'ja': '確度のしきい値を[CONFIDENCE_THRESHOLD]にする',
         'ja-Hira': 'かくどのしきいちを[CONFIDENCE_THRESHOLD]にする',
         'en': 'set confidence threshold [CONFIDENCE_THRESHOLD]'
     },
     get_confidence_threshold: {
-        'ja': '確度の閾値',
+        'ja': '確度のしきい値',
         'ja-Hira': 'かくどのしきいち',
         'en': 'confidence threshold'
     },
