@@ -633,11 +633,11 @@ class Scratch3TM2ScratchBlocks {
      * @return {Array} - Menu items with ''.
      */
     getSoundLabelsWithoutAnyMenu () {
-        let items = [''];
         if (this.soundMetadata) {
-            items = items.concat(this.soundMetadata.wordLabels);
+            return this.soundMetadata.wordLabels;
+        } else {
+            return [''];
         }
-        return items;
     }
 
     /**
@@ -647,7 +647,12 @@ class Scratch3TM2ScratchBlocks {
     getSoundLabelsWithoutBackgroundMenu () {
         let items = [Message.any[this.locale]];
         if (!this.soundMetadata) return items;
-        items = items.concat(this.soundMetadata.wordLabels.slice(1));
+        let arr = this.soundMetadata.wordLabels;
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] !== '_background_noise_') {
+                items.push(arr[i]);
+            }
+        }
         return items;
     }
 
@@ -658,7 +663,12 @@ class Scratch3TM2ScratchBlocks {
     getSoundLabelsWithoutBackgroundWithAnyWithoutOfMenu () {
       let items = [Message.any_without_of[this.locale]];
       if (!this.soundMetadata) return items;
-      items = items.concat(this.soundMetadata.wordLabels.slice(1));
+      let arr = this.soundMetadata.wordLabels;
+      for (let i = 0; i < arr.length; i++) {
+          if (arr[i] !== '_background_noise_') {
+              items.push(arr[i]);
+          }
+      }
       return items;
     }
 
