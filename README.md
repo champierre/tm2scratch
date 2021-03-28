@@ -69,3 +69,9 @@ TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image
     ```
     % npm start
     ```
+
+### Demo & Links
+
+- TM2Scratch + micro:bit Extension
+
+  <img src="images/rsp.gif" />
