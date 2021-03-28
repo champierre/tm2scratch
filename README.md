@@ -1,18 +1,20 @@
 # TM2Scratch
 
-TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image, audio recognition on Scratch project (pose recognition to be released in near future).
+*Read this in other languages: [English](README.md), [日本語](README.ja.md).*
+
+TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image, audio recognition on Scratch project(Please use [TMPose2Scratch](https://github.com/champierre/tmpose2scratch) for pose recognition).
 
 ## How to use
 
 ### Image recognition
 
-1. On [Google Teachable Machine 2](https://teachablemachine.withgoogle.com/) website, create an image classification model and upload it.
+1. On [Google Teachable Machine](https://teachablemachine.withgoogle.com/) website, create an image classification model and upload it.
 
 2. Copy the sharable link.
 
   <img src="images/en/sharable_link.png" />
 
-3. Open http://champierre.github.io/tm2scratch on Chrome browser.
+3. Open [https://stretch3.github.io/](https://stretch3.github.io/) on Chrome browser.
 
 4. Open "Choose an Extension" window and select "TM2Scratch".
 
