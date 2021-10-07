@@ -11,133 +11,156 @@ const Message = {
     image_classification_model_url: {
         'ja': '画像分類モデルURL[URL]',
         'ja-Hira': 'がぞうぶんるいモデル[URL]',
-        'en': 'image classification model URL [URL]'
+        'en': 'image classification model URL [URL]',
+        'ko': '이미지 분류 모델 URL [URL]'
     },
     sound_classification_model_url: {
         'ja': '音声分類モデルURL[URL]',
         'ja-Hira': 'おんせいぶんるいモデル[URL]',
-        'en': 'sound classification model URL [URL]'
+        'en': 'sound classification model URL [URL]',
+        'ko': '소리 분류 모델 URL [URL]'
     },
     classify_image: {
         'ja': '画像を分類する',
         'ja-Hira': 'がぞうをぶんるいする',
-        'en': 'classify image'
+        'en': 'classify image',
+        'ko': '이미지 분류하기'
     },
     image_label: {
         'ja': '画像ラベル',
         'ja-Hira': 'がぞうラベル',
-        'en': 'image label'
+        'en': 'image label',
+        'ko': '이미지 라벨'
     },
     sound_label: {
         'ja': '音声ラベル',
         'ja-Hira': 'おんせいラベル',
-        'en': 'sound label'
+        'en': 'sound label',
+        'ko': '소리 라벨'
     },
     when_received_block: {
         'ja': '画像ラベル[LABEL]を受け取ったとき',
         'ja-Hira': 'がぞうラベル[LABEL]をうけとったとき',
         'en': 'when received image label:[LABEL]',
-        'zh-cn': '接收到类别[LABEL]时'
+        'zh-cn': '接收到类别[LABEL]时',
+        'ko': '이미지 라벨을 받았을 때:[LABEL]'
     },
     is_image_label_detected: {
         'ja': '[LABEL]の画像が見つかった',
         'ja-Hira': '[LABEL]のがぞうがみつかった',
-        'en': 'image [LABEL] detected'
+        'en': 'image [LABEL] detected',
+        'ko': '이미지 [LABEL] 감지됨'
     },
     is_sound_label_detected: {
         'ja': '[LABEL]の音声が聞こえた',
         'ja-Hira': '[LABEL]のおんせいがきこえた',
-        'en': 'sound [LABEL] detected'
+        'en': 'sound [LABEL] detected',
+        'ko': '소리 [LABEL] 감지됨
     },
     image_label_confidence: {
         'ja': '画像ラベル[LABEL]の確度',
         'ja-Hira': 'がぞうラベル[LABEL]のかくど',
-        'en': 'confidence of image [LABEL]'
+        'en': 'confidence of image [LABEL]',
+        'ko': '이미지 [LABEL]의 신뢰도'
     },
     sound_label_confidence: {
         'ja': '音声ラベル[LABEL]の確度',
         'ja-Hira': 'おんせいラベル[LABEL]のかくど',
-        'en': 'confidence of sound [LABEL]'
+        'en': 'confidence of sound [LABEL]',
+        'ko': '소리 [LABEL]의 신뢰도'
     },
     when_received_sound_label_block: {
         'ja': '音声ラベル[LABEL]を受け取ったとき',
         'ja-Hira': '音声ラベル[LABEL]をうけとったとき',
         'en': 'when received sound label:[LABEL]',
-        'zh-cn': '接收到声音类别[LABEL]时'
+        'zh-cn': '接收到声音类别[LABEL]时',
+        'ko': '소리 라벨을 받았을 때:[LABEL]'
     },
     label_block: {
         'ja': 'ラベル',
         'ja-Hira': 'ラベル',
         'en': 'label',
-        'zh-cn': '标签'
+        'zh-cn': '标签',
+        'ko': '라벨'
     },
     any: {
         'ja': 'のどれか',
         'ja-Hira': 'のどれか',
         'en': 'any',
-        'zh-cn': '任何'
+        'zh-cn': '任何',
+        'ko': '어떠한'
     },
     any_without_of: {
       'ja': 'どれか',
       'ja-Hira': 'どれか',
       'en': 'any',
-      'zh-cn': '任何'
+      'zh-cn': '任何',
+      'ko': '어떠한'
     },
     all: {
         'ja': 'の全て',
         'ja-Hira': 'のすべて',
         'en': 'all',
-        'zh-cn': '所有'
+        'zh-cn': '所有',
+        'ko': '모든'
     },
     toggle_classification: {
         'ja': 'ラベル付けを[CLASSIFICATION_STATE]にする',
         'ja-Hira': 'ラベルづけを[CLASSIFICATION_STATE]にする',
         'en': 'turn classification [CLASSIFICATION_STATE]',
-        'zh-cn': '[CLASSIFICATION_STATE]分类'
+        'zh-cn': '[CLASSIFICATION_STATE]分类',
+        'ko': '[CLASSIFICATION_STATE] 분류 시작'
     },
     set_confidence_threshold: {
         'ja': '確度のしきい値を[CONFIDENCE_THRESHOLD]にする',
         'ja-Hira': 'かくどのしきいちを[CONFIDENCE_THRESHOLD]にする',
-        'en': 'set confidence threshold [CONFIDENCE_THRESHOLD]'
+        'en': 'set confidence threshold [CONFIDENCE_THRESHOLD]',
+        'ko': '신뢰도 경계 설정 [CONFIDENCE_THRESHOLD]'
     },
     get_confidence_threshold: {
         'ja': '確度のしきい値',
         'ja-Hira': 'かくどのしきいち',
-        'en': 'confidence threshold'
+        'en': 'confidence threshold',
+        'ko': '신뢰도 경계'
     },
     set_classification_interval: {
         'ja': 'ラベル付けを[CLASSIFICATION_INTERVAL]秒間に1回行う',
         'ja-Hira': 'ラベルづけを[CLASSIFICATION_INTERVAL]びょうかんに1かいおこなう',
         'en': 'Label once every [CLASSIFICATION_INTERVAL] seconds',
-        'zh-cn': '每隔[CLASSIFICATION_INTERVAL]秒标记一次'
+        'zh-cn': '每隔[CLASSIFICATION_INTERVAL]秒标记一次',
+        'ko': '매 [CLASSIFICATION_INTERVAL]초마다 라벨 분류하기'
     },
     video_toggle: {
         'ja': 'ビデオを[VIDEO_STATE]にする',
         'ja-Hira': 'ビデオを[VIDEO_STATE]にする',
         'en': 'turn video [VIDEO_STATE]',
-        'zh-cn': '[VIDEO_STATE]摄像头'
+        'zh-cn': '[VIDEO_STATE]摄像头',
+        'ko':'비디오 시작 [VIDEO_STATE]'
     },
     on: {
         'ja': '入',
         'ja-Hira': 'いり',
         'en': 'on',
-        'zh-cn': '开启'
+        'zh-cn': '开启',
+        'ko': '켜기'
     },
     off: {
         'ja': '切',
         'ja-Hira': 'きり',
         'en': 'off',
-        'zh-cn': '关闭'
+        'zh-cn': '关闭',
+        'ko': '끄기'
     },
     video_on_flipped: {
         'ja': '左右反転',
         'ja-Hira': 'さゆうはんてん',
         'en': 'on flipped',
-        'zh-cn': '镜像开启'
+        'zh-cn': '镜像开启',
+        'ko': '좌우반전'
     }
 };
 
-const AvailableLocales = ['en', 'ja', 'ja-Hira', 'zh-cn'];
+const AvailableLocales = ['en', 'ja', 'ja-Hira', 'zh-cn', 'ko'];
 
 class Scratch3TM2ScratchBlocks {
     constructor (runtime) {
