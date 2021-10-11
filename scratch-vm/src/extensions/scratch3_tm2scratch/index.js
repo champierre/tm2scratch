@@ -55,7 +55,7 @@ const Message = {
         'ja': '[LABEL]の音声が聞こえた',
         'ja-Hira': '[LABEL]のおんせいがきこえた',
         'en': 'sound [LABEL] detected',
-        'ko': '[LABEL] 소리가 감지됨
+        'ko': '[LABEL] 소리가 감지됨'
     },
     image_label_confidence: {
         'ja': '画像ラベル[LABEL]の確度',
