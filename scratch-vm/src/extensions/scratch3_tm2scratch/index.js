@@ -43,38 +43,38 @@ const Message = {
         'ja-Hira': 'がぞうラベル[LABEL]をうけとったとき',
         'en': 'when received image label:[LABEL]',
         'zh-cn': '接收到类别[LABEL]时',
-        'ko': '이미지 라벨을 받았을 때:[LABEL]'
+        'ko': '[LABEL] 이미지 라벨을 받았을 때:'
     },
     is_image_label_detected: {
         'ja': '[LABEL]の画像が見つかった',
         'ja-Hira': '[LABEL]のがぞうがみつかった',
         'en': 'image [LABEL] detected',
-        'ko': '이미지 [LABEL] 감지됨'
+        'ko': '[LABEL] 이미지가 감지됨'
     },
     is_sound_label_detected: {
         'ja': '[LABEL]の音声が聞こえた',
         'ja-Hira': '[LABEL]のおんせいがきこえた',
         'en': 'sound [LABEL] detected',
-        'ko': '소리 [LABEL] 감지됨
+        'ko': '[LABEL] 소리가 감지됨
     },
     image_label_confidence: {
         'ja': '画像ラベル[LABEL]の確度',
         'ja-Hira': 'がぞうラベル[LABEL]のかくど',
         'en': 'confidence of image [LABEL]',
-        'ko': '이미지 [LABEL]의 신뢰도'
+        'ko': '[LABEL] 이미지 신뢰도'
     },
     sound_label_confidence: {
         'ja': '音声ラベル[LABEL]の確度',
         'ja-Hira': 'おんせいラベル[LABEL]のかくど',
         'en': 'confidence of sound [LABEL]',
-        'ko': '소리 [LABEL]의 신뢰도'
+        'ko': '[LABEL] 소리 신뢰도'
     },
     when_received_sound_label_block: {
         'ja': '音声ラベル[LABEL]を受け取ったとき',
         'ja-Hira': '音声ラベル[LABEL]をうけとったとき',
         'en': 'when received sound label:[LABEL]',
         'zh-cn': '接收到声音类别[LABEL]时',
-        'ko': '소리 라벨을 받았을 때:[LABEL]'
+        'ko': '[LABEL] 소리 라벨을 받았을 때:'
     },
     label_block: {
         'ja': 'ラベル',
@@ -88,14 +88,14 @@ const Message = {
         'ja-Hira': 'のどれか',
         'en': 'any',
         'zh-cn': '任何',
-        'ko': '어떠한'
+        'ko': '어떤'
     },
     any_without_of: {
       'ja': 'どれか',
       'ja-Hira': 'どれか',
       'en': 'any',
       'zh-cn': '任何',
-      'ko': '어떠한'
+      'ko': '어떤'
     },
     all: {
         'ja': 'の全て',
