@@ -109,7 +109,7 @@ const Message = {
         'ja-Hira': 'ラベルづけを[CLASSIFICATION_STATE]にする',
         'en': 'turn classification [CLASSIFICATION_STATE]',
         'zh-cn': '[CLASSIFICATION_STATE]分类',
-        'ko': '[CLASSIFICATION_STATE] 분류 시작'
+        'ko': '라벨 분류 [CLASSIFICATION_STATE]'
     },
     set_confidence_threshold: {
         'ja': '確度のしきい値を[CONFIDENCE_THRESHOLD]にする',
@@ -135,28 +135,28 @@ const Message = {
         'ja-Hira': 'ビデオを[VIDEO_STATE]にする',
         'en': 'turn video [VIDEO_STATE]',
         'zh-cn': '[VIDEO_STATE]摄像头',
-        'ko':'비디오 시작 [VIDEO_STATE]'
+        'ko':'비디오 [VIDEO_STATE]'
     },
     on: {
         'ja': '入',
         'ja-Hira': 'いり',
         'en': 'on',
         'zh-cn': '开启',
-        'ko': '켜기'
+        'ko': '시작하기'
     },
     off: {
         'ja': '切',
         'ja-Hira': 'きり',
         'en': 'off',
         'zh-cn': '关闭',
-        'ko': '끄기'
+        'ko': '그만하기'
     },
     video_on_flipped: {
         'ja': '左右反転',
         'ja-Hira': 'さゆうはんてん',
         'en': 'on flipped',
         'zh-cn': '镜像开启',
-        'ko': '좌우반전'
+        'ko': '좌우반전 켜기'
     }
 };
 
