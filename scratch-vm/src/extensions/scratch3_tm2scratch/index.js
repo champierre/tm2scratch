@@ -155,7 +155,7 @@ const Message = {
         'en': 'turn video [VIDEO_STATE]',
         'zh-cn': '[VIDEO_STATE]摄像头',
         'ko':'비디오 [VIDEO_STATE]',
-        'zh-tw':'切換影片[VIDEO_STATE]'
+        'zh-tw':'視訊設為[VIDEO_STATE]'
     },
     on: {
         'ja': '入',
@@ -179,7 +179,7 @@ const Message = {
         'en': 'on flipped',
         'ko': '좌우반전 켜기',
         'zh-cn': '镜像开启',
-        'zh-tw':'左右鏡像'
+        'zh-tw':'翻轉'
     }
 };
 
