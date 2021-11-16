@@ -20,8 +20,8 @@ mkdir -p src/lib/libraries/extensions/${EXTENSION_ID}
 cp ${EXTENSION_ID}/scratch-gui/src/lib/libraries/extensions/${EXTENSION_ID}/${EXTENSION_ID}.png src/lib/libraries/extensions/${EXTENSION_ID}/
 cp ${EXTENSION_ID}/scratch-gui/src/lib/libraries/extensions/${EXTENSION_ID}/${EXTENSION_ID}-small.png src/lib/libraries/extensions/${EXTENSION_ID}/
 mv src/lib/libraries/extensions/index.jsx src/lib/libraries/extensions/index.jsx_orig
-mv src/containers/extensionLibrary.jsx src/containers/extensionLibrary.jsx_orig
-cp ${EXTENSION_ID}/scratch-gui/src/containers/extensionLibrary.jsx src/containers/extensionLibrary.jsx
+mv src/containers/extension-library.jsx src/containers/extension-library.jsx_orig
+cp ${EXTENSION_ID}/scratch-gui/src/containers/extension-library.jsx src/containers/extension-library.jsx
 DESCRIPTION="\
     {${LF}\
         name: '${EXTENSION_NAME}',${LF}\
