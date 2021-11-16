@@ -15,12 +15,26 @@ const Message = {
         'ko': '이미지 분류 모델 URL [URL]',
         'zh-tw':'影像分類模型網址[URL]'
     },
+    image_classification_sample_model_url: {
+        'ja': 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/',
+        'ja-Hira': 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/',
+        'en': ' ',
+        'ko': ' ',
+        'zh-tw': ' '
+    },
     sound_classification_model_url: {
         'ja': '音声分類モデルURL[URL]',
         'ja-Hira': 'おんせいぶんるいモデル[URL]',
         'en': 'sound classification model URL [URL]',
         'ko': '소리 분류 모델 URL [URL]',
         'zh-tw':'聲音分類模型網址[URL]'
+    },
+    sound_classification_sample_model_url: {
+        'ja': 'https://teachablemachine.withgoogle.com/models/xP0spGSB/',
+        'ja-Hira': 'https://teachablemachine.withgoogle.com/models/xP0spGSB/',
+        'en': ' ',
+        'ko': ' ',
+        'zh-tw': ' '
     },
     classify_image: {
         'ja': '画像を分類する',
@@ -290,7 +304,7 @@ class Scratch3TM2ScratchBlocks {
                     arguments: {
                         URL: {
                             type: ArgumentType.STRING,
-                            defaultValue: 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/'
+                            defaultValue: Message.image_classification_sample_model_url[this.locale]
                         }
                     }
                 },
@@ -349,7 +363,7 @@ class Scratch3TM2ScratchBlocks {
                     arguments: {
                         URL: {
                             type: ArgumentType.STRING,
-                            defaultValue: 'https://teachablemachine.withgoogle.com/models/xP0spGSB/'
+                            defaultValue: Message.sound_classification_sample_model_url[this.locale]
                         }
                     }
                 },
