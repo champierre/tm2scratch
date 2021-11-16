@@ -20,6 +20,8 @@ mkdir -p src/lib/libraries/extensions/${EXTENSION_ID}
 cp ${EXTENSION_ID}/scratch-gui/src/lib/libraries/extensions/${EXTENSION_ID}/${EXTENSION_ID}.png src/lib/libraries/extensions/${EXTENSION_ID}/
 cp ${EXTENSION_ID}/scratch-gui/src/lib/libraries/extensions/${EXTENSION_ID}/${EXTENSION_ID}-small.png src/lib/libraries/extensions/${EXTENSION_ID}/
 mv src/lib/libraries/extensions/index.jsx src/lib/libraries/extensions/index.jsx_orig
+mv src/containers/extensionLibrary.jsx src/containers/extensionLibrary.jsx_orig
+cp ${EXTENSION_ID}/scratch-gui/src/containers/extensionLibrary.jsx src/containers/extensionLibrary.jsx
 DESCRIPTION="\
     {${LF}\
         name: '${EXTENSION_NAME}',${LF}\
@@ -37,6 +39,26 @@ DESCRIPTION="\
         featured: true,${LF}\
         disabled: false,${LF}\
         internetConnectionRequired: true,${LF}\
-        bluetoothRequired: false${LF}\
+        bluetoothRequired: false,${LF}\
+        translationMap: {${LF}\
+            'ja': {${LF}\
+                'gui.extension.tm2scratchblocks.description': '画像や音声を学習させよう。'${LF}\
+            },${LF}\
+            'ja-Hira': {${LF}\
+                'gui.extension.tm2scratchblocks.description': 'がぞうやおんせいをがくしゅうさせよう。'${LF}\
+            },${LF}\
+            'en': {${LF}\
+                'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'${LF}\
+            },${LF}\
+            'zh-cn': {${LF}\
+                'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'${LF}\
+            },${LF}\
+            'ko': {${LF}\
+                'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'${LF}\
+            },${LF}\
+            'zh-tw': {${LF}\
+                'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'${LF}\
+            }${LF}\
+        }${LF}\
     },"
 sed -e "s|^export default \[$|import ${EXTENSION_ID}IconURL from './${EXTENSION_ID}/${EXTENSION_ID}.png';${LF}import ${EXTENSION_ID}InsetIconURL from './${EXTENSION_ID}/${EXTENSION_ID}-small.png';${LF}${LF}export default [${LF}${DESCRIPTION}|g" src/lib/libraries/extensions/index.jsx_orig > src/lib/libraries/extensions/index.jsx
