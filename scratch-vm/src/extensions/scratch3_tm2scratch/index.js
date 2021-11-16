@@ -145,14 +145,14 @@ const Message = {
         'ja': '確度のしきい値を[CONFIDENCE_THRESHOLD]にする',
         'ja-Hira': 'かくどのしきいちを[CONFIDENCE_THRESHOLD]にする',
         'en': 'set confidence threshold [CONFIDENCE_THRESHOLD]',
-        'ko': '신뢰도 경계 설정 [CONFIDENCE_THRESHOLD]',
+        'ko': '신뢰도 기준 설정 [CONFIDENCE_THRESHOLD]',
         'zh-tw':'設定置信度閾值[CONFIDENCE_THRESHOLD]'
     },
     get_confidence_threshold: {
         'ja': '確度のしきい値',
         'ja-Hira': 'かくどのしきいち',
         'en': 'confidence threshold',
-        'ko': '신뢰도 경계',
+        'ko': '신뢰도 기준',
         'zh-tw':'置信度閾值'
     },
     set_classification_interval: {
@@ -168,14 +168,14 @@ const Message = {
         'ja-Hira': 'ビデオを[VIDEO_STATE]にする',
         'en': 'turn video [VIDEO_STATE]',
         'zh-cn': '[VIDEO_STATE]摄像头',
-        'ko':'비디오 [VIDEO_STATE]',
+        'ko':'비디오 화면 [VIDEO_STATE]',
         'zh-tw':'視訊設為[VIDEO_STATE]'
     },
     on: {
         'ja': '入',
         'ja-Hira': 'いり',
         'en': 'on',
-        'ko': '시작하기',
+        'ko': '켜기',
         'zh-cn': '开启',
         'zh-tw':'開啟'
     },
@@ -183,7 +183,7 @@ const Message = {
         'ja': '切',
         'ja-Hira': 'きり',
         'en': 'off',
-        'ko': '그만하기',
+        'ko': '멈추기',
         'zh-cn': '关闭',
         'zh-tw':'關閉'
     },
@@ -191,7 +191,7 @@ const Message = {
         'ja': '左右反転',
         'ja-Hira': 'さゆうはんてん',
         'en': 'on flipped',
-        'ko': '좌우반전 켜기',
+        'ko': '좌우 뒤집기',
         'zh-cn': '镜像开启',
         'zh-tw':'翻轉'
     }
