@@ -54,7 +54,7 @@ DESCRIPTION="\
                 'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'${LF}\
             },${LF}\
             'ko': {${LF}\
-                'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'${LF}\
+                'gui.extension.tm2scratchblocks.description': '나의 이미지와 소리를 인식해볼까요'${LF}\
             },${LF}\
             'zh-tw': {${LF}\
                 'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'${LF}\
