@@ -37,6 +37,8 @@ All rights reserved.
 
   <img src="images/ja/when_received.png" />
 
+7. **注意** Teachable Machineで学習するカメラ画像は正方形であるのに対して、Scratchのステージに映るカメラ画像は横長の長方形です。カメラ画像の両横端は無視され、中央に映っている画像が判定に使われることに注意してください。(判定したいものを真ん中に映す通常の使い方をしている限りは問題ありません)
+
 ### 音声認識
 
 1. [Google Teachable Machine](https://teachablemachine.withgoogle.com/)で、音声分類モデルを作成してアップロードします。

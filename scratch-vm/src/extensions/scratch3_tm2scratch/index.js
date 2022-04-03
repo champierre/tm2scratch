@@ -205,16 +205,16 @@ class Scratch3TM2ScratchBlocks {
         this.locale = this.setLocale();
 
         this.video = document.createElement('video');
-        this.video.width = 480;
-        this.video.height = 360;
         this.video.autoplay = true;
-        this.video.style.display = 'none';
 
         this.interval = 1000;
         this.minInterval = 100;
 
         const media = navigator.mediaDevices.getUserMedia({
-            video: true,
+            video: {
+                width: 360,
+                height: 360
+            },
             audio: false
         });
 
