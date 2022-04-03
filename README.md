@@ -44,7 +44,7 @@ TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image
 
   <img src="images/en/when_received_sound_label.png" />
 
-7.**NOTE** The camera image that is trained on the Teachable Machine is a square, whereas the camera image that appears on the Scratch stage is a horizontal rectangle. Note that the horizontal edges of the camera image are ignored, and the image in the center is used to recognize. (This is not a problem as long as the object to be judged is in the center of the image.)
+7. **NOTE** The camera image that is trained on the Teachable Machine is a square, whereas the camera image that appears on the Scratch stage is a horizontal rectangle. Note that the horizontal edges of the camera image are ignored, and the image in the center is used to recognize. (This is not a problem as long as the object to be judged is in the center of the image.)
 
 ## For Developers - How to run TM2Scratch extension on your computer
 
