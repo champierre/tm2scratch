@@ -1,7 +1,7 @@
-## サポートのお願い
+## Request for support
 
-TM2Scratchは2020年よりオープンソースかつ無料で提供しており、学校や各種プログラミング教室はじめさまざまな場所で利用されております。継続して開発を続けるためには、使っていただいている皆さまからの支援が必要です。<br />
-[一杯のコーヒー](https://www.buymeacoffee.com/champierre)という形でサポートをいただけると大変ありがたく思います。
+TM2Scratch has been open source and free of charge since 2020, and is used in various places such as schools and various programming classes. In order to continue development, we need support from everyone who uses it.
+I would be very grateful if you could support me in the form of [a cup of coffee]((https://www.buymeacoffee.com/champierre)).
 
 ![bmc_qr](https://user-images.githubusercontent.com/10215/215533679-bb41b1a2-ba42-4eb6-9f9a-6d0bd67f3aaa.png)
 
