@@ -39,7 +39,7 @@ TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image
 
 2. Copy the sharable link.
 
-3. Open http://champierre.github.io/tm2scratch on Chrome browser.
+3. Open https://champierre.github.io/tm2scratch on Chrome browser.
 
 4. Open "Choose an Extension" window and select "TM2Scratch".
 
