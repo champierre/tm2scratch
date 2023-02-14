@@ -619,10 +619,7 @@ class Scratch3TM2ScratchBlocks {
      */
     loadSoundClassificationModelFromURL (url) {
         return new Promise(resolve => {
-            const modelId = path.basename(url);
-            const storageUrl = `https://storage.googleapis.com/tm-model/${modelId}/`;
-            const timestamp = new Date().getTime();
-            fetch(`${storageUrl}metadata.json?${timestamp}`)
+            fetch(`${url}metadata.json`)
                 .then(res => res.json())
                 .then(metadata => {
                     if (url === this.soundModelUrl &&
@@ -630,7 +627,7 @@ class Scratch3TM2ScratchBlocks {
                         log.info(`sound model already loaded: ${url}`);
                         resolve();
                     } else {
-                        ml5.soundClassifier(`${storageUrl}model.json?${timestamp}`)
+                        ml5.soundClassifier(`${url}model.json`)
                             .then(classifier => {
                                 this.soundModelUrl = url;
                                 this.soundMetadata = metadata;
