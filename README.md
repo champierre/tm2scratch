@@ -1,3 +1,10 @@
+## Request for support
+
+TM2Scratch has been open source and free of charge since 2020, and is used in various places such as schools and various programming classes. In order to continue development, we need support from everyone who uses it.
+I would be very grateful if you could support me in the form of [a cup of coffee]((https://www.buymeacoffee.com/champierre)).
+
+<a href="https://www.buymeacoffee.com/champierre"><img src="https://user-images.githubusercontent.com/10215/215533679-bb41b1a2-ba42-4eb6-9f9a-6d0bd67f3aaa.png"></a>
+
 # TM2Scratch
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
