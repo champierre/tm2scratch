@@ -194,6 +194,13 @@ const Message = {
         'ko': '좌우 뒤집기',
         'zh-cn': '镜像开启',
         'zh-tw':'翻轉'
+    },
+    switch_webcam: {
+        'ja': 'カメラを[DEVICE]に切り替える',
+        'ja-Hira': 'カメラを[DEVICE]にきりかえる',
+        'en': 'switch webcam to [DEVICE]',
+        'zh-cn': '网络摄像头切换到[DEVICE]',
+        'zh-tw': '網路攝影機切換到[DEVICE]'
     }
 };
 
@@ -239,6 +246,22 @@ class Scratch3TM2ScratchBlocks {
         this.initSoundProbableLabels();
 
         this.runtime.ioDevices.video.enableVideo();
+
+        this.devices = [{text: 'default', value: ''}];
+        try {
+        navigator.mediaDevices.enumerateDevices().then(media => {
+            for (const device of media) {
+            if (device.kind === 'videoinput') {
+                this.devices.push({
+                    text: device.label,
+                    value: device.deviceId
+                });
+            }
+            }
+        });
+        } catch {
+            console.error('failed to load media devices!');
+        }
 
         let script = document.createElement('script');
         script.src = 'https://stretch3.github.io/ml5-library/ml5.min.js';
@@ -429,6 +452,18 @@ class Scratch3TM2ScratchBlocks {
                             defaultValue: 'off'
                         }
                     }
+                },
+                {
+                    opcode: 'switchCamera',
+                    blockType: BlockType.COMMAND,
+                    text: Message.switch_webcam[this.locale],
+                    arguments: {
+                        DEVICE: {
+                            type: ArgumentType.STRING,
+                            defaultValue: '',
+                            menu: 'mediadevices'
+                        }
+                    }
                 }
             ],
             menus: {
@@ -458,7 +493,11 @@ class Scratch3TM2ScratchBlocks {
                 },
                 video_menu: this.getVideoMenu(),
                 classification_interval_menu: this.getClassificationIntervalMenu(),
-                classification_menu: this.getClassificationMenu()
+                classification_menu: this.getClassificationMenu(),
+                mediadevices: {
+                    acceptReporters: true,
+                    items: 'getDevices'
+                }
             }
         };
     }
@@ -1002,6 +1041,31 @@ class Scratch3TM2ScratchBlocks {
         }
         return 'en';
 
+    }
+    switchCamera (args) {
+        if (args.DEVICE !== '') {
+            if (this.runtime.ioDevices.video.provider._track !== null) {
+                this.runtime.ioDevices.video.provider._track.stop();
+                const deviceId = args.DEVICE;
+                navigator.mediaDevices.getUserMedia({audio: false, video: {deviceId}}).then(
+                    stream => {
+                        try {
+                            this.runtime.ioDevices.video.provider._video.srcObject = stream;
+                        } catch (error) {
+                            this.runtime.ioDevices.video.provider._video.src = window.URL.createObjectURL(stream);
+                        }
+                        // Needed for Safari/Firefox, Chrome auto-plays.
+                        this.runtime.ioDevices.video.provider._video.play();
+                        this.runtime.ioDevices.video.provider._track = stream.getTracks()[0];
+            
+                    }
+                );
+            }
+        }
+    }
+
+    getDevices () {
+        return this.devices;
     }
 }
 
