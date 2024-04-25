@@ -95,7 +95,7 @@ const Message = {
         'en': 'confidence of image [LABEL]',
         'ko': '[LABEL] 이미지 신뢰도',
         'zh-tw': '影像置信度[LABEL]',
-        'de': 'Treffsicherheit der Bildklasse [LABEL]'
+        'de': 'Konfidenz der Bildklasse [LABEL]'
     },
     sound_label_confidence: {
         'ja': '音声ラベル[LABEL]の確度',
@@ -103,7 +103,7 @@ const Message = {
         'en': 'confidence of sound [LABEL]',
         'ko': '[LABEL] 소리 신뢰도',
         'zh-tw': '聲音置信度[LABEL]',
-        'de': 'Treffsicherheit der Audioklasse [LABEL]
+        'de': 'Konfidenz der Audioklasse [LABEL]
     },
     when_received_sound_label_block: {
         'ja': '音声ラベル[LABEL]を受け取ったとき',
@@ -165,7 +165,7 @@ const Message = {
         'en': 'set confidence threshold [CONFIDENCE_THRESHOLD]',
         'ko': '신뢰도 기준 설정 [CONFIDENCE_THRESHOLD]',
         'zh-tw': '設定置信度閾值[CONFIDENCE_THRESHOLD]',
-        'de': 'Setze den Treffsicherheitsgrenzwert auf [CONFIDENCE_THRESHOLD]'
+        'de': 'Setze den Konfidenzschwelle auf [CONFIDENCE_THRESHOLD]'
         
     },
     get_confidence_threshold: {
@@ -174,7 +174,7 @@ const Message = {
         'en': 'confidence threshold',
         'ko': '신뢰도 기준',
         'zh-tw': '置信度閾值',
-        'de': 'Treffsicherheitsgrenzwert'
+        'de': 'Konfidenzschwelle'
     },
     set_classification_interval: {
         'ja': 'ラベル付けを[CLASSIFICATION_INTERVAL]秒間に1回行う',
