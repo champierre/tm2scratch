@@ -86,6 +86,12 @@ TM2Scratchは、Google Teachable Machineを使って作成した画像あるい�
 | 長所 | 学習に使用する映像を選別することができる。作成した機械学習モデル保存したい、あるいは別のマシンで使いたいという場合は共有用のURLのやりとりだけで済むため手軽。| 学習も分類もML2Scratch上でできるため、モデルを修正しながらプログラムを試すといった試行錯誤がしやすい。カメラ画像の代わりにステージの画像も学習、分類することができる。 |
 | 短所 | 学習と分類で2段階に分かれているため、モデルを修正しながらプログラムを試すといった試行錯誤がしにくい。 | 学習に使用する映像の選別はできない。作成した機械学習モデルを保存したい、あるいは別のマシンで使いたいという場合はモデルのファイルをダウンロード/アップロードするという手間が必要。|
 
+## 事例紹介
+
+- 文部科学省 学習指導要領の教師向け参考資料、[中学校技術・家庭科（技術分野）] (https://www.mext.go.jp/a_menu/shotou/new-cs/senseiouen/mext_02685.html) 総合的な問題を扱った事例としてTM2Scratchと[MicroBit More](https://microbit-more.github.io/index-ja.html)が紹介されています。
+  - [統合的な問題を扱った事例2](https://www.mext.go.jp/content/20240326-mxt_kyoiku01-000034969_8.pdf)
+  - [AIデジタルおもちゃで幼児の遊びをサポートしよう！（構想と製作）](https://www.youtube.com/watch?v=ime4bYVI8zg)
+
 ## For Developers - How to run TM2Scratch extension on your computer
 
 1. Setup LLK/scratch-gui on your computer.
