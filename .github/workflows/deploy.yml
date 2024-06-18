@@ -37,7 +37,7 @@ jobs:
       - run: sh ./tm2scratch/add_ga_tracking_code.sh
       - run: NODE_OPTIONS=--openssl-legacy-provider npm run build
       - run: cp ./tm2scratch/favicon.ico ./build/static/favicon.ico
-
+      - run: sh ./tm2scratch/modify_index_html.sh
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
