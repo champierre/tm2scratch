@@ -6,33 +6,48 @@ on:
     tags:
       - "!*"
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           repository: LLK/scratch-gui
           ref: develop
       - run: npm install
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: ./tm2scratch
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           repository: yokobond/scratch-microbit-more
           path: ./microbitMore
       - run: sh ./microbitMore/install-stretch3.sh
       - run: sh ./tm2scratch/install.sh
       - run: sh ./tm2scratch/add_ga_tracking_code.sh
-      - run: npm run build
-      - run: cp ./tm2scratch/index.html ./build/index.html
+      - run: NODE_OPTIONS=--openssl-legacy-provider npm run build
       - run: cp ./tm2scratch/favicon.ico ./build/static/favicon.ico
-      - uses: peaceiris/actions-gh-pages@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./build
-      - uses: rtCamp/action-slack-notify@v2.0.0
+          path: 'build'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_USERNAME: TM2Scratch
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
