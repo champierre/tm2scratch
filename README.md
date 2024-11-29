@@ -17,7 +17,7 @@ TM2Scratchは、Google Teachable Machine2で作成した機械学習モデルを
 - 書籍や雑誌、Webメディア上でTM2Scratchを紹介される場合は、以下の文面を掲載いただきたくお願いいたします。
 
 ```
-TM2Scratchには, BSD 3-Clause Licenseが適用されます。
+TM2Scratchには, AGPL-3.0 Licenseが適用されます。
 Copyright (c) 2020, Junya Ishihara(https://github.com/champierre) and Koji Yokokawa(https://github.com/yokobond)
 All rights reserved.
 ```
