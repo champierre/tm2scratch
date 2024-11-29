@@ -11,6 +11,10 @@ I would be very grateful if you could support me in the form of [a cup of coffee
 
 TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image, audio recognition on Scratch project(Please use [TMPose2Scratch](https://github.com/champierre/tmpose2scratch) for pose recognition).
 
+## License
+
+TM2Scratch is under [AGPL-3.0 license](./LICENSE), open source and freely available to anyone. You can use it at your classes, workshops. Commercial usage is also accepted. If you or your students created something cool using TM2Scratch, please share it on SNS using hashtag #tm2scratch or let me know to any of these contacts.
+
 ## How to use
 
 ### Image recognition
