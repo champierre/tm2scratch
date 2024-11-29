@@ -13,7 +13,7 @@ TM2Scratchは、Google Teachable Machine2で作成した機械学習モデルを
 
 ## Licence(ライセンス)
 
-- TMScratchには [BSD 3-Clause License](./LICENSE.md) が適用されます。オープンソースで、誰でも自由に利用できます。授業やワークショップで使用でき、商用利用も認められています。あなたやあなたの生徒さんがTM2Scratchを使用して何か面白いプロジェクトを作成したときは、ぜひハッシュタグ #tm2scratch を使用してSNSで共有するか、webmaster@champierre.com までお知らせください。
+- TMScratchには [AGPL-3.0 license](./LICENSE) が適用されます。オープンソースで、誰でも自由に利用できます。授業やワークショップで使用でき、商用利用も認められています。あなたやあなたの生徒さんがTM2Scratchを使用して何か面白いプロジェクトを作成したときは、ぜひハッシュタグ #tm2scratch を使用してSNSで共有するか、webmaster@champierre.com までお知らせください。
 - 書籍や雑誌、Webメディア上でTM2Scratchを紹介される場合は、以下の文面を掲載いただきたくお願いいたします。
 
 ```
