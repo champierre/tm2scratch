@@ -88,6 +88,8 @@ TM2Scratchは、Google Teachable Machineを使って作成した画像あるい�
 
 ## 事例紹介
 
+- 野田学園中学校の取り組み、高齢者の方でも体を動かして楽しめる「AIデジタルゆるスポーツ」の作品を作るためにStretch3とTM2Scratchが使われています。
+  - [野田学園「シニアのためのプログラミング」【つながる絵本～for SDGs～】#399](https://www.youtube.com/watch?v=lGRt536Ud8s)
 - 文部科学省 学習指導要領の教師向け参考資料、[中学校技術・家庭科（技術分野）](https://www.mext.go.jp/a_menu/shotou/new-cs/senseiouen/mext_02685.html)の総合的な問題を扱った事例としてTM2Scratchと[MicroBit More](https://microbit-more.github.io/index-ja.html)が紹介されています。
   - [統合的な問題を扱った事例2](https://www.mext.go.jp/content/20240326-mxt_kyoiku01-000034969_8.pdf)
   - [AIデジタルおもちゃで幼児の遊びをサポートしよう！（構想と製作）](https://www.youtube.com/watch?v=ime4bYVI8zg)
