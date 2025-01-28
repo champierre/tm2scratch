@@ -99,7 +99,7 @@ TM2Scratchは、Google Teachable Machineを使って作成した画像あるい�
 1. Setup LLK/scratch-gui on your computer.
 
     ```
-    % git clone git@github.com:LLK/scratch-gui.git
+    % git clone --depth 1 git@github.com:LLK/scratch-gui.git
     % cd scratch-gui
     % npm install
     ```
