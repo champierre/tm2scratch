@@ -618,10 +618,8 @@ class Scratch3TM2ScratchBlocks {
      */
     loadImageClassificationModelFromURL(url) {
         return new Promise(resolve => {
-            const modelId = this.getBasename(url);
-            const storageUrl = `https://storage.googleapis.com/tm-model/${modelId}/`;
             const timestamp = new Date().getTime();
-            fetch(`${storageUrl}metadata.json?${timestamp}`)
+            fetch(`${url}metadata.json?${timestamp}`)
                 .then(res => res.json())
                 .then(metadata => {
                     if (url === this.imageModelUrl &&
@@ -629,7 +627,7 @@ class Scratch3TM2ScratchBlocks {
                         log.info(`image model already loaded: ${url}`);
                         resolve();
                     } else {
-                        ml5.imageClassifier(`${storageUrl}model.json?${timestamp}`)
+                        ml5.imageClassifier(`${url}model.json?${timestamp}`)
                             .then(classifier => {
                                 this.imageModelUrl = url;
                                 this.imageMetadata = metadata;
@@ -657,7 +655,8 @@ class Scratch3TM2ScratchBlocks {
      */
     loadSoundClassificationModelFromURL(url) {
         return new Promise(resolve => {
-            fetch(`${url}metadata.json`)
+            const timestamp = new Date().getTime();
+            fetch(`${url}metadata.json?${timestamp}`)
                 .then(res => res.json())
                 .then(metadata => {
                     if (url === this.soundModelUrl &&
@@ -665,7 +664,7 @@ class Scratch3TM2ScratchBlocks {
                         log.info(`sound model already loaded: ${url}`);
                         resolve();
                     } else {
-                        ml5.soundClassifier(`${url}model.json`)
+                        ml5.soundClassifier(`${url}model.json?${timestamp}`)
                             .then(classifier => {
                                 this.soundModelUrl = url;
                                 this.soundMetadata = metadata;
