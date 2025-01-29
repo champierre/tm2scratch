@@ -18,10 +18,10 @@ const Message = {
     image_classification_sample_model_url: {
         'ja': 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/',
         'ja-Hira': 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/',
-        'en': ' ',
-        'ko': ' ',
-        'zh-tw': ' ',
-        'de': ''
+        'en': 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/',
+        'ko': 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/',
+        'zh-tw': 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/',
+        'de': 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/'
     },
     sound_classification_model_url: {
         'ja': '音声分類モデルURL[URL]',
@@ -34,10 +34,10 @@ const Message = {
     sound_classification_sample_model_url: {
         'ja': 'https://teachablemachine.withgoogle.com/models/xP0spGSB/',
         'ja-Hira': 'https://teachablemachine.withgoogle.com/models/xP0spGSB/',
-        'en': ' ',
-        'ko': ' ',
-        'zh-tw': ' ',
-        'de': ''
+        'en': 'https://teachablemachine.withgoogle.com/models/xP0spGSB/',
+        'ko': 'https://teachablemachine.withgoogle.com/models/xP0spGSB/',
+        'zh-tw': 'https://teachablemachine.withgoogle.com/models/xP0spGSB/',
+        'de': 'https://teachablemachine.withgoogle.com/models/xP0spGSB/'
     },
     classify_image: {
         'ja': '画像を分類する',
