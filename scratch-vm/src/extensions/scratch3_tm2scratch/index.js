@@ -13,7 +13,7 @@ const Message = {
         'en': 'image classification model URL [URL]',
         'ko': '이미지 분류 모델 URL [URL]',
         'zh-tw': '影像分類模型網址[URL]',
-        'de': 'Bildklassifikationsmodell'
+        'de': 'Bildklassifikationsmodell-URL [URL]'
     },
     image_classification_sample_model_url: {
         'ja': 'https://teachablemachine.withgoogle.com/models/0rX_3hoH/',
@@ -29,7 +29,7 @@ const Message = {
         'en': 'sound classification model URL [URL]',
         'ko': '소리 분류 모델 URL [URL]',
         'zh-tw': '聲音分類模型網址[URL]',
-        'de': 'Audioklassifikationsmodell'
+        'de': 'Audioklassifikationsmodell-URL [URL]'
     },
     sound_classification_sample_model_url: {
         'ja': 'https://teachablemachine.withgoogle.com/models/xP0spGSB/',
@@ -102,7 +102,7 @@ const Message = {
         'en': 'confidence of sound [LABEL]',
         'ko': '[LABEL] 소리 신뢰도',
         'zh-tw': '聲音置信度[LABEL]',
-        'de': 'Konfidenz der Audioklasse [LABEL]
+        'de': 'Konfidenz der Audioklasse [LABEL]'
     },
     when_received_sound_label_block: {
         'ja': '音声ラベル[LABEL]を受け取ったとき',
@@ -164,7 +164,7 @@ const Message = {
         'en': 'set confidence threshold [CONFIDENCE_THRESHOLD]',
         'ko': '신뢰도 기준 설정 [CONFIDENCE_THRESHOLD]',
         'zh-tw': '設定置信度閾值[CONFIDENCE_THRESHOLD]',
-        'de': 'Setze den Konfidenzschwelle auf [CONFIDENCE_THRESHOLD]'
+        'de': 'Setze die Konfidenzschwelle auf [CONFIDENCE_THRESHOLD]'
         
     },
     get_confidence_threshold: {
@@ -226,7 +226,7 @@ const Message = {
         'en': 'switch webcam to [DEVICE]',
         'zh-cn': '网络摄像头切换到[DEVICE]',
         'zh-tw': '網路攝影機切換到[DEVICE]',
-        'de': 'Wechsle Webcame zu [DEVICE]'
+        'de': 'Wechsle Webcam zu [DEVICE]'
     }
 };
 
