@@ -691,7 +691,7 @@ class Scratch3TM2ScratchBlocks {
                         log.info(`sound model already loaded: ${url}`);
                         resolve();
                     } else {
-                        ml5.soundClassifier(`${url}model.json?${timestamp}`)
+                        ml5.soundClassifier(`${url}model.json`)
                             .then(classifier => {
                                 this.soundModelUrl = url;
                                 this.soundMetadata = metadata;
