@@ -11,7 +11,7 @@ TM2Scratchは2020年よりオープンソースかつ無料で提供しており
 
 TM2Scratchは、Google Teachable Machine2で作成した機械学習モデルをScratch3で利用できるようにした拡張機能です。Scratchプロジェクトで画像、音声認識を使用できます（ポーズ認識については[TMPose2Scratch](https://github.com/champierre/tmpose2scratch)をご利用ください）。
 
-また、[Generation AI](https://www.gen-ai.fi/en)もサポートしています。Generation AIは、K-12（幼稚園から高校まで）向けの無料・オープン教育リソースで、Google Teachable MachineがiPadでは動作しないのに対して、iPadでも利用できます。さらに、GDPR準拠で、すべての処理がローカルデバイスで実行されるため、プライバシーに配慮した設計となっています。
+また、[Generation AI](https://www.gen-ai.fi/)もサポートしています。Generation AIは、K-12（幼稚園から高校まで）向けの無料・オープン教育リソースで、Google Teachable MachineがiPadでは動作しないのに対して、iPadでも利用できます。さらに、GDPR準拠で、すべての処理がローカルデバイスで実行されるため、プライバシーに配慮した設計となっています。
 
 ## Licence(ライセンス)
 
