@@ -11,7 +11,7 @@ I would be very grateful if you could support me in the form of [a cup of coffee
 
 TM2Scratch connects Google Teachable Machine 2 with Scratch 3. You can use image, audio recognition on Scratch project(Please use [TMPose2Scratch](https://github.com/champierre/tmpose2scratch) for pose recognition).
 
-It also supports [Generation AI](https://www.gen-ai.fi/en). Generation AI is a free, open educational resource for K-12 (kindergarten through high school). Unlike Google Teachable Machine, which does not work on iPads, Generation AI is compatible with iPads. Furthermore, it is GDPR compliant and designed with privacy in mind, as all processing is performed on the local device.
+It also supports [Generation AI](https://www.gen-ai.fi/). Generation AI is a free, open educational resource for K-12 (kindergarten through high school). Unlike Google Teachable Machine, which does not work on iPads, Generation AI is compatible with iPads. Furthermore, it is GDPR compliant and designed with privacy in mind, as all processing is performed on the local device.
 
 ## License
 
